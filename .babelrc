@@ -9,3 +9,37 @@
     "transform-runtime"
   ]
 }
+//{
+//  "presets": [["env", { "modules": false }],
+//    "stage-2"
+//  ],
+//  "plugins": [
+//    [
+//      "component",
+//      {
+//        "libraryName": "element-ui",
+//        "styleLibraryName": "theme-chalk"
+//      }
+//    ]
+//  ]
+//}
+//{
+//  "presets": [
+//    ["env", {
+//      "modules": false,
+//      "targets": {
+//        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+//      }
+//    }],
+//    "stage-2"
+//  ],
+//  "plugins": [
+//    [
+//      "component",
+//      {
+//        "libraryName": "element-ui",
+//        "styleLibraryName": "theme-chalk"
+//      }
+//    ]
+//  ]
+//}

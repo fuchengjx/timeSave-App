@@ -20,7 +20,7 @@ import {
   RadioGroup,
   Input,
   Textarea,
-  Select,
+  // Select,
   Switch,
   Rate,
   Validator,
@@ -63,7 +63,7 @@ Vue.use(Radio)
 Vue.use(RadioGroup)
 Vue.use(Input)
 Vue.use(Textarea)
-Vue.use(Select)
+// Vue.use(Select)
 Vue.use(Switch)
 Vue.use(Rate)
 Vue.use(Validator)
