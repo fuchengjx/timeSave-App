@@ -8,8 +8,10 @@
     <div class="classify">
       <div class="classifyTitle">分类</div>
       <div class="classifyBtn">
-        <button class="question">问题反馈</button>
-        <button class="improve">改善建议</button>
+        <cube-tab-bar
+          v-model="selectedLabelDefault"
+          :data="tabs">
+        </cube-tab-bar>
       </div>
     </div>
     <div class="feedback">
@@ -26,16 +28,16 @@
       <button @click="submit" class="submitBtn">提交</button>
     </div>
     </div>
-    <mt-popup
-      v-model="feedBack"
-      position="top" class="msgVisible">
-      {{msg}}
-    </mt-popup>
+
+    <cube-popup type="my-popup" ref="myPopup" v-model="visible" >
+      <span class="Msg">
+         {{Msg}}
+      </span>
+    </cube-popup>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
   export default {
     name: "suggestion",
     data () {
@@ -43,18 +45,27 @@
         content: '',
         token : localStorage.jwtToken,
         phone : '',
-        feedBack: false,
-        msg: ''
+        visible: false,
+        Msg: '',
+        selectedLabelDefault: '问题反馈' ,
+        tabs:[{
+          label: '问题反馈'
+        },{
+          label: '改善建议'
+        }]
       }
     },
     methods:{
+      changeBgc (index) {
+        this.inx = index
+      },
       submit () {
         if (this.content===''){
-          this.feedBack = true
-          this.msg = "您的反馈不能为空哦！"
+          this.Msg = "您的反馈不能为空哦！"
+          this.Popup()
         } else {
-          let data = {"content" : this.content, "phone" : this.phone}
-          axios({
+          let data = {"content" : this.content, "type": "text", "phone" : this.phone}
+          this.axios({
             method: 'post',
             data: data,
             url: '/api/feedback/submit',
@@ -62,20 +73,19 @@
               Authorization: this.token
             }
           }).then(this.showMsg).catch(()=>{
-            alert("反馈失败")
+            this.Msg = "反馈失败"
+            this.Popup()
           })
         }
       },
       showMsg (res) {
-        this.feedBack = true
-        this.msg = res.data.data
-        setTimeout(() => {
-          if(res.data.code){
+        this.Msg = res.data.data
+        this.Popup()
+        if(res.data.code) {
+          setTimeout(function () {
             this.$router.push({path: '/'})
-          } else {
-            this.msg = "很遗憾，您的反馈失败"
-          }
-        },1800)
+          },500)
+        }
       },
       goBack () {
         this.$router.go(-1)
@@ -85,15 +95,12 @@
 </script>
 
 <style scoped>
+  .cube-tab_active div{
+    color: #0082FF;
+  }
   .wrapper{
     max-width: 405px;
     margin: 0 auto;
-  }
-  .msgVisible{
-    width: 100%;
-    height: 1rem;
-    font-size: 30px;
-    text-align: center;
   }
   a{
     text-decoration: none;
@@ -122,25 +129,11 @@
     line-height: 40px;
   }
   .classifyBtn{
-    height: 65px;
-    line-height: 65px;
+    height: 50px;
+    line-height: 35px;
     font-size: 16px;
     background: white;
     padding-left: 20px;
-  }
-  .question{
-    background: white;
-    border: 1px solid #0082FF;
-    color: #0082ff;
-    border-radius: 3px;
-    /*font-size: 16px;*/
-  }
-  .improve{
-    background: white;
-    border: 1px solid #ffffff;
-    color: #333;
-    padding-left: 15px;
-    /*font-size: 16px;*/
   }
   .feedback{
     font-size: 18px;

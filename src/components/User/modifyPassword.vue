@@ -23,77 +23,82 @@
       <label>
       <div class="password">
           <span>新密码</span>
-          <input placeholder="请输入新密码" type="password" required="required" title="请输入密码" v-model="pass"/>
+          <input placeholder="请输入新密码" type="password" required="required" title="请输入密码" v-model="password"/>
       </div>
       </label>
     </div>
     <button type="button" class="btn_verify" @click="modify">修改</button>
-    <mt-popup
-      v-model="verifyVisible"
-      position="top" class="verifyVisible">
-      {{verifyMsg}}
-    </mt-popup>
+    <!--显示信息-->
+    <cube-popup type="my-popup" ref="myPopup" v-model="visible" >
+      <span class="Msg">
+         {{Msg}}
+      </span>
+    </cube-popup>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
   export default {
     name: "modifyPassword",
     data () {
       return {
         token : localStorage.jwtToken,
         email: '',
-        pass: '',
+        password: '',
         verifyCode: '',
-        verifyVisible: false,
-        verifyMsg: ''
+        visible: false,
+        Msg: ''
       }
     },
     methods: {
       modify () {
-        if(this.email === ''){
-          this.verifyVisible = true
-          this.verifyMsg = "输入邮箱后才能发送哦"
-        } else if (this.verifyCode === '') {
-          this.verifyVisible = true
-          this.verifyMsg = "请输入您获得的验证码"
-        }else if (this.pass === ''){
-          this.verifyVisible = true
-          this.verifyMsg = "请输入您的新密碼"
+        if(this.isEmail(this.email)) {
+          if(this.verifyCode !=='') {
+            if(this.password !== '') {
+              let postData = { email: this.email, newPassword :this.password, verifyCode: this.verifyCode}
+              this.axios.post('/api/user/forget', postData).then(this.afterModify).catch( (res)=> {
+                console.log(res) //打印错误信息方便调试
+                this.Msg = '密码修改失败'
+                this.Popup()
+              })
+            } else {
+              this.Msg = '密码不能为空'
+              this.Popup()
+            }
+          } else {
+            this.Msg = '验证码有误'
+            this.Popup()
+          }
         } else {
-          let postData = { email: this.email, newPassword :this.pass, verifyCode: this.verifyCode}
-          axios.post('/api/user/forget', postData).then(this.afterModify).catch(()=>{
-            alert("密码修改失败")
-          })
+          this.Msg = '邮箱有误'
+          this.Popup()
         }
       },
       afterModify (res) {
-        this.verifyVisible = true
-        this.verifyMsg = res.data.data
-        if(res.data.code) {
-          this.verifyMsg = res.data.data
-          this.verifyVisible = true
-          setTimeout(()=> {
+        this.Msg = res.data.message
+        this.visible = true
+        if(res.data.status) {
+          setTimeout( ()=> {
             localStorage.removeItem("jwtToken")
+            localStorage.removeItem("shixianEmail")
             this.$router.push({path: '/User/login'})
           },2000)
         }
       },
       verify () {
-        if(this.email === ''){
-          this.verifyVisible = true
-          this.verifyMsg = "输入邮箱后才能发送哦"
-        } else {
+        if (this.isEmail(this.email)) {
           let postVerifyCode = {email: this.email}
-          axios.post('/api/user/sendVcode', postVerifyCode).then(this.verifying).catch(()=>{
-            alert("验证码发送失败")
+          this.axios.post('/api/user/sendVcode', postVerifyCode).then( (res) => {
+            this.Msg = res.data.message
+            this.Popup()
+          }).catch( ()=> {
+            this.Msg = "验证码发送失败"
+            this.Popup()
           })
+        } else {
+          this.Msg = '邮箱有误'
+          this.Popup()
         }
-      },
-      verifying (res) {
-        this.verifyVisible = true
-        this.verifyMsg = res.data.data
       },
       goBack () {
         this.$router.go(-1)
@@ -190,11 +195,5 @@
     color:white ;
     box-shadow: 0px 3px 6px rgb(220,220,220);
     font-size: 16px;
-  }
-  .verifyVisible{
-    width: 100%;
-    height: 1rem;
-    font-size: 30px;
-    text-align: center;
   }
 </style>

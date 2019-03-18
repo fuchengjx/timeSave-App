@@ -37,7 +37,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   export default {
     name: "register",
     data () {
@@ -50,56 +49,55 @@
       }
     },
     methods: {
-      isEmail(str) {
-        let myReg = /^[-_A-Za-z0-9]+@([_A-Za-z0-9]+\.)+[A-Za-z0-9]{2,3}$/
-        if(myReg.test(str)) return true
-        return false
-      },
-      Popup() {
-        this.visible = true
-        setTimeout(() => {
-          this.visible = false
-        }, 1000)
-      },
       register () {
-        if (this.isEmail(this.email) || this.verifyCode=== ''){
-          this.Msg = "邮箱或验证码有误"
-          this.Popup()
-        }else if(this.password === ''){
-          this.Msg = '密码不能为空'
-          this.Popup()
-        } else {
-          let postData = { email: this.email, password: this.password, verifyCode: this.verifyCode }
-          axios.post('/api/user/register', postData).then(this.todoSomething).catch( (res)=> {
-            console.log(res)
-            this.Msg = "注册失败"
+        if(this.isEmail(this.email)) {
+          if(this.verifyCode !== '') {
+            if (this.password !== '') {
+              let postData = { email: this.email, password: this.password, verifyCode: this.verifyCode }
+              this.axios.post('/api/user/register', postData).then(this.todoSomething).catch( (res)=> {
+                console.log(res)
+                this.Msg = "注册失败"
+                this.Popup()
+              })
+            } else {
+              this.Msg = '密码不能为空'
+              this.Popup()
+            }
+          } else {
+            this.Msg = '验证码有误'
             this.Popup()
-          })
+          }
+        } else {
+          this.Msg = '邮箱有误'
+          this.Popup()
         }
       },
       todoSomething (res) {
         this.Msg = res.data.message  //ajax请求发送后返回的信息，看是否注册成功
         this.visible = true
-        setTimeout( () => {
-          if (res.data.status){
-            localStorage.setItem("jwtToken",res.data.token)
-            this.$router.push({path: '/User/login'})
-          }
-        },2500)
+        if(res.data.status) {
+          setTimeout( () => {
+            if (res.data.status){
+              localStorage.setItem("jwtToken",res.data.data.token) //本地存储Token注册后直接进入首页
+              localStorage.setItem("shixianEmail", this.email)
+              this.$router.push({path: '/'})
+            }
+          },2500)
+        }
       },
       verify () {
-        if(this.email === ''){
-          this.Msg = "输入邮箱后才能发送哦"
-          this.Popup()
-        } else {
+        if (this.isEmail(this.email)) {
           let postVerifyCode = {email: this.email}
-          axios.post('/api/user/sendVcode', postVerifyCode).then( (res) => {
+          this.axios.post('/api/user/sendVcode', postVerifyCode).then( (res) => {
             this.Msg = res.data.message
             this.Popup()
           }).catch( ()=> {
             this.Msg = "验证码发送失败"
             this.Popup()
           })
+        } else {
+          this.Msg = '邮箱有误'
+          this.Popup()
         }
       },
       goBack () {
@@ -110,11 +108,6 @@
 </script>
 
 <style scoped>
-  .Msg{
-    font-size: 25px;
-    padding: 5px;
-    background: rgba(176,176,176,0.5);
-  }
   .register{
     max-width: 405px;
     margin: 0 auto;
@@ -210,5 +203,4 @@
     box-shadow: 0 3px 6px rgb(220,220,220);
     font-size: 16px;
   }
-
 </style>

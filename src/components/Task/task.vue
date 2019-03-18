@@ -132,20 +132,6 @@
 </template>
 
 <script>
-  // function resizeRoot(){
-  //   var deviceWidth = document.documentElement.clientWidth,                 //计算根节点HTML的字体大小
-  //     num = 750,
-  //     num1 = num / 100;
-  //   if(deviceWidth > num){
-  //     deviceWidth = num;
-  //   }
-  //   document.documentElement.style.fontSize = deviceWidth / num1 + "px";
-  // }
-  // resizeRoot();                                                               //根节点HTML的字体大小初始化
-  // window.onresize = function(){
-  //   resizeRoot();
-  // };
-  import axios from 'axios'
   export default {
     name: "task",
     data () {

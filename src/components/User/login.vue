@@ -1,5 +1,10 @@
 <template>
       <div class="login">
+        <cube-popup type="my-popup" ref="myPopup" v-model="visible" >
+      <span class="Msg">
+         {{Msg}}
+      </span>
+        </cube-popup>
       <form class="login_form">
         <img class="login_image" src="../../assets/images/login.png">
           <div class="content">
@@ -9,7 +14,7 @@
             </label>
             <label class="account_password">
               <i class="iconfont">&#xe638;</i>
-              <input type="password" name="user_pass" placeholder=" 请输入密码"  required="true" title="请输入密码" v-model="pass" autocomplete="off">
+              <input type="password" name="user_pass" placeholder=" 请输入密码"  required="true" title="请输入密码" v-model="password" autocomplete="off">
             </label>
             <div class="user_nav">
               <button type="button" class="btn_login" @click="login">登录</button>
@@ -21,57 +26,54 @@
               </router-link>
             </div>
           </div>
-        <!--<mt-popup-->
-          <!--v-model="loginVisible"-->
-          <!--position="top" class="loginVisible">-->
-          <!--{{loginMsg}}-->
-        <!--</mt-popup>-->
       </form>
     </div>
 </template>
 
 <script>
-  import axios from 'axios'
+
   export default {
     name: "login",
     data(){
       return{
         email: '',
-        pass: '',
-        loginVisible: false,
-        loginMsg: ''
+        password: '',
+        visible: false,
+        Msg: ''
       }
     },
     methods: {
       login () {
-        localStorage.setItem("shixianEmail", this.email)
-        let postData = { email: this.email, password: this.pass }
-        axios.post('/api/user/login', postData).then(this.todoSomething).catch( ()=> {
-          alert("登录失败")
-        })
+        if(this.isEmail(this.email)) {
+          let postData = { email: this.email, password: this.password }
+          this.axios.post('/api/user/login', postData).then(this.todoSomething).catch( ()=> {
+            this.Msg = '登录失败'
+            this.Popup()
+          })
+        } else {
+          this.Msg = "邮箱错误"
+          this.Popup()
+        }
       },
       todoSomething (res) {
-        this.loginVisible = true
-        this.loginMsg = res.data.data
-        if(res.data.code){
-          localStorage.setItem("jwtToken",res.data.token)
-          this.$router.push({path:'/'})
+        this.Msg = res.data.message
+        this.visible = true
+        if(res.data.status) {
+          setTimeout( () => {
+            localStorage.setItem("shixianEmail", this.email)
+            localStorage.setItem("jwtToken", res.data.data.token)
+            this.$router.push({path: '/'})
+
+          },500)
         }
       }
     }
-
   }
 </script>
 
 <style scoped>
   .login{
     font-family: PingFangSC-Semibold, sans-serif;
-  }
-  .loginVisible{
-    width: 100%;
-    height: 1rem;
-    font-size: 30px;
-    text-align: center;
   }
   .login_form{
     width: 7.41rem;

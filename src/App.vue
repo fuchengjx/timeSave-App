@@ -25,4 +25,10 @@ export default {
     border: none;
     outline: none;
   }
+  /*Toast的样式*/
+  .Msg{
+    font-size: 25px;
+    padding: 5px;
+    background: rgba(176,176,176,0.5);
+  }
 </style>

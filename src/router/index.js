@@ -28,7 +28,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: index,
-      // redirect: '/',  该位置还有bug， 等后面在做重定向
+      redirect: '/Task',
       children: [
         {
           path: '/Task',
