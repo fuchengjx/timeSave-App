@@ -51,24 +51,24 @@
           this.$router.push({path: '/User/login'})
         }
       },
-      changetaskFont () {
-        this.index = 0
-        // this.$refs.taskFont.innerHTML = '&#xe630'
-        // this.$refs.noteFont.innerHTML = '&#xe807'
-        // this.$refs.mineFont.innerHTML = '&#xe608'
-      },
-      changenoteFont () {
-        this.index =1
-        // this.$refs.taskFont.innerHTML = '&#xe83d'
-        // this.$refs.noteFont.innerHTML = '&#xe808'
-        // this.$refs.mineFont.innerHTML = '&#xe608'
-      },
-      changemineFont () {
-        this.index = 2
-        // this.$refs.taskFont.innerHTML = '&#xe83d'
-        // this.$refs.noteFont.innerHTML = '&#xe807'
-        // this.$refs.mineFont.innerHTML = '&#xe62a'
-      }
+      // changetaskFont () {
+      //   this.index = 0
+      //   // this.$refs.taskFont.innerHTML = '&#xe630'
+      //   // this.$refs.noteFont.innerHTML = '&#xe807'
+      //   // this.$refs.mineFont.innerHTML = '&#xe608'
+      // },
+      // changenoteFont () {
+      //   this.index =1
+      //   // this.$refs.taskFont.innerHTML = '&#xe83d'
+      //   // this.$refs.noteFont.innerHTML = '&#xe808'
+      //   // this.$refs.mineFont.innerHTML = '&#xe608'
+      // },
+      // changemineFont () {
+      //   this.index = 2
+      //   // this.$refs.taskFont.innerHTML = '&#xe83d'
+      //   // this.$refs.noteFont.innerHTML = '&#xe807'
+      //   // this.$refs.mineFont.innerHTML = '&#xe62a'
+      // }
     },
     mounted () {
       this.todoSomething()

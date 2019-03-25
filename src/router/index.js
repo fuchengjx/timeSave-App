@@ -6,6 +6,7 @@ const index = () => import('../components/index')
 const login = () => import('../components/User/login')
 const register = () => import('../components/User/register')
 const task = () => import('../components/Task/task')
+// const addTask = () => import('../components/Task/addTask')
 const shoolCalendar = () => import('../components/Calendar/schoolCalendar')
 const suggestion = () => import('../components/User/suggestion')
 const about = () => import('../components/User/about')
@@ -20,6 +21,7 @@ const mine = () => import('../components/User/mine')
 // import about from '../components/User/about'
 // import modifyPassword from '../components/User/modifyPassword'
 // import mine from '../components/User/mine'
+import add from '../components/Task/add'
 Vue.use(Router)
 
 export default new Router({
@@ -80,6 +82,10 @@ export default new Router({
       path: '/User/modifyPassword',
       name: modifyPassword,
       component: modifyPassword
+    },{
+      path: '/Task/add',
+      name: add,
+      component: add
     }
   ]
 })

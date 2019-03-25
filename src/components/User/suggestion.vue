@@ -61,7 +61,7 @@
       },
       submit () {
         if (this.content===''){
-          this.Msg = "您的反馈不能为空哦！"
+          this.Msg = "(ง •_•)ง您的反馈不能为空哦!"
           this.Popup()
         } else {
           let data = {"content" : this.content, "type": "text", "phone" : this.phone}
@@ -95,9 +95,6 @@
 </script>
 
 <style scoped>
-  .cube-tab_active div{
-    color: #0082FF;
-  }
   .wrapper{
     max-width: 405px;
     margin: 0 auto;

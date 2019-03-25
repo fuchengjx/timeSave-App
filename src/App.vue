@@ -27,8 +27,11 @@ export default {
   }
   /*Toast的样式*/
   .Msg{
-    font-size: 25px;
-    padding: 5px;
-    background: rgba(176,176,176,0.5);
+    text-align: center;
+    font-size: 18px;
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    background: #5BA9F4;
   }
 </style>

@@ -1,0 +1,224 @@
+<template>
+  <div>
+    <div class="event_input">
+
+
+      <button class="btn_cancel" @click="cancelAdd()" >
+        <span class="iconfont">&#xe600;</span>
+      </button>
+      <button class="btn_confirm" @click="confirmAdd()">
+        <span class="iconfont">&#xe843;</span>
+      </button>
+      <div class="input_text">
+        <input placeholder="请添加注意事项" v-model="title"/>
+      </div>
+
+      <div class="taskNav">
+        <div class="label">
+          <button @click="labelDisplay()">
+            <span class="iconfont">&#xe737;</span>
+          </button>
+        </div>
+        <cube-select
+          v-if="labelVisable"
+          v-model="labelValue"
+          :auto-Pop="true"
+          :options="options">
+        </cube-select>
+
+        <div class="priority">
+          <button @click="priority()">
+            <span class="iconfont">&#xe8a5;</span>
+          </button>
+        </div>
+        <div class="time">
+          <button @click="timeDisplay()">
+            <span class="iconfont">&#xe83d;
+              <cube-button
+              :auto-Pop="true"
+              @click="showDateSegmentPicker"></cube-button></span>
+          </button>
+
+        </div>
+      </div>
+      <cube-popup type="my-popup" ref="myPopup" v-model="visible">
+      <span class="Msg">
+         {{Msg}}
+      </span>
+      </cube-popup>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "add",
+    data () {
+      return {
+        Msg: '',
+        visible: false,
+        title: '',
+        labelValue: '',
+        options: ['健身', '旅游', '学习', '工作', '娱乐'],
+        labelVisable: false,
+        priorityValue: 0,
+        timeVisable: false,
+      }
+    },
+    methods : {
+      showDateSegmentPicker() {
+        this.dateSegmentPicker.show()
+      },
+      cancelAdd () {
+        this.$router.push({ path: '/'})  //暂时先看看直接跳转到根路由是否会把该组件的数据清空
+      },
+      confirmAdd () {
+
+      },
+      labelDisplay () {
+        this.labelVisable = true
+        document.querySelector(" .label span").style.color = '#0082ff'
+        document.querySelector(".priority span").style.color = '#333333'
+        document.querySelector(".time span").style.color = '#333333'
+
+      },
+      priority () {
+        this.priorityValue = 1
+        document.querySelector(".priority span").style.color = '#0082ff'
+        document.querySelector(".label span").style.color = '#999999'
+        document.querySelector(".time span").style.color = '#333333'
+        this.Msg = '✔任务标记为紧急!'
+        this.Popup()
+      },
+      timeDisplay (){
+        this.timeVisable = true
+      }
+    },
+    mounted() {
+      this.dateSegmentPicker = this.$createSegmentPicker({
+        data: [{
+          is: 'cube-cascade-picker',
+          title: '选择日期',
+          data: [
+            new Date(),
+           new Date()
+          ],
+          selectedIndex: [0, 0, 0],
+        },{
+          title: '选择时间点'
+        }],
+        onSelect: (selectedTime, selectedText, formatedTime) => {
+          this.$createDialog({
+            type: 'warn',
+            title: `标题: ${selectedTime}`,
+            content: `Selected Items: <br/> - 入学时间: ${formatedTime[0]} <br/> - 毕业时间: ${formatedTime[1]}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+      })
+    }
+  }
+</script>
+
+<style scoped>
+  .event_input{
+    position: absolute;
+    width: 9.4rem;
+    padding: 0.2rem 0.3rem 2rem 0.3rem;
+    z-index: 999;
+    font-size: 20px;
+    background: white;
+  }
+  .btn_confirm{
+    float: right;
+  }
+  .btn_confirm .iconfont{
+    font-size: 25px;
+  }
+  .event_input button{
+    border: 0;
+    font-size: 14px;
+    background: white;
+    /*background-image: url("../../assets/images/clock.jpg");*/
+  }
+  .startTime button{
+    color: #c0c4cc;
+    padding-left: 30px;
+    background: white url("../../assets/images/clock.jpg") no-repeat 10px 13px;
+  }
+  .input_text input{
+    height: 1rem;
+    width: 9.4rem;
+    font-size: 24px;
+    border: 0;
+    padding-top: 5px;
+    padding-bottom: 12px;
+  }
+  .taskNav{
+    position: relative;
+  }
+  .taskNav div{
+    display: inline-block;
+  }
+  .label_input{
+    position: absolute;
+  }
+  .label span{
+    color: gray;
+  }
+  .priority{
+    position: absolute;
+    left: 6.53rem;
+    color: blue;
+  }
+  .priority .iconfont{
+    font-size: 21.5px;
+  }
+  .time{
+    position:absolute;
+    right: 0.07rem;
+  }
+  .time .iconfont{
+    font-size: 18px;
+  }
+  .elDate{
+    position: absolute;
+    top: 71px;
+    left: -300px;
+  }
+  .page-datetime .page-datetime-wrapper{
+    position: absolute;
+    top: 112px;
+    left: -300px;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .page-datetime span{
+    font-size: 10px;
+  }
+  .timeLength{
+    position: absolute;
+    top: 420px;
+    left: -300px;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .moreSetting{
+    position: absolute;
+    width: 5rem;
+    background: white;
+    right: 0;
+    top:1rem;
+    font-size: 16px;
+    z-index:999;
+    overflow: auto;
+  }
+  .moreSetting :first-child{
+    margin-top: 14px;
+  }
+  .moreSetting div{
+    float: left;
+    margin-left: 14px;
+    margin-bottom: 14px;
+  }
+</style>
