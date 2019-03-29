@@ -34,11 +34,13 @@
         <div class="time">
           <button @click="timeDisplay()">
             <span class="iconfont">&#xe83d;
-              <cube-button
-              :auto-Pop="true"
-              @click="showDateSegmentPicker"></cube-button></span>
-          </button>
 
+            </span>
+            <cube-button
+              class="cBtn"
+              :auto-Pop="true"
+              @click="showDateSegmentPicker"></cube-button>
+          </button>
         </div>
       </div>
       <cube-popup type="my-popup" ref="myPopup" v-model="visible">
@@ -55,6 +57,23 @@
     name: "add",
     data () {
       return {
+        timeData: [
+          {
+            is: 'cube-date-picker',
+            title: '日期',
+            min: new Date(),
+            max: new Date(2030, 11, 31)
+          },  {
+            is: 'cube-date-picker',
+            title: '时间',
+            min: [1, 0],
+            max: [23, 59],
+            value: new Date(),
+            startColumn: 'hour',
+            selectedIndex: [0, 0],
+            columnCount: 2,
+          }
+        ],
         Msg: '',
         visible: false,
         title: '',
@@ -62,6 +81,10 @@
         options: ['健身', '旅游', '学习', '工作', '娱乐'],
         labelVisable: false,
         priorityValue: 0,
+
+        startDate: '',
+        startTime: '',
+
         timeVisable: false,
       }
     },
@@ -73,14 +96,27 @@
         this.$router.push({ path: '/'})  //暂时先看看直接跳转到根路由是否会把该组件的数据清空
       },
       confirmAdd () {
-
+        let postData = {title: this.title, startDate: this.startDate, startTime: this.startTime, label: this.labelValue, priority: this.priorityValue}
+        this.axios({
+          methods: 'post',
+          url: '/api/task/create',
+          data: postData,
+          header: {
+            Authorization: this.token
+          }
+        }).then( (res)=> {
+          this.Msg = res.data.msg
+          this.Popup ()
+          if(res.data.code) {
+            this.$router.push({ path: '/'})
+          }
+        })
       },
       labelDisplay () {
         this.labelVisable = true
         document.querySelector(" .label span").style.color = '#0082ff'
         document.querySelector(".priority span").style.color = '#333333'
         document.querySelector(".time span").style.color = '#333333'
-
       },
       priority () {
         this.priorityValue = 1
@@ -96,23 +132,20 @@
     },
     mounted() {
       this.dateSegmentPicker = this.$createSegmentPicker({
-        data: [{
-          is: 'cube-cascade-picker',
-          title: '选择日期',
-          data: [
-            new Date(),
-           new Date()
-          ],
-          selectedIndex: [0, 0, 0],
-        },{
-          title: '选择时间点'
-        }],
+        data: this.timeData,
         onSelect: (selectedTime, selectedText, formatedTime) => {
+          this.startDate = formatedTime[0][0] + "-" + formatedTime[0][1] + "-" + formatedTime[0][2]
+          console.log("startDate" + this.startDate)
+          this.startTime = formatedTime[1][0] + ":" + formatedTime[1][1]
+          console.log("startTime" + this.startTime)
           this.$createDialog({
+
             type: 'warn',
             title: `标题: ${selectedTime}`,
-            content: `Selected Items: <br/> - 入学时间: ${formatedTime[0]} <br/> - 毕业时间: ${formatedTime[1]}`,
+            content: `Selected Items: <br/>日期: ${formatedTime[0]} <br/>选择时间: ${formatedTime[1]}`,
             icon: 'cubeic-alert'
+          },() => {
+            //
           }).show()
         },
       })
@@ -177,8 +210,21 @@
   .time{
     position:absolute;
     right: 0.07rem;
+    width: 30px;
+    height: 30px;
+  }
+  .time span{
+    position: relative;
+    z-index: 100;
+  }
+  .cBtn{
+    position: absolute;
+    bottom: 10px;
+    right:  5px;
+    z-index: 0;
   }
   .time .iconfont{
+    z-index: 100;
     font-size: 18px;
   }
   .elDate{

@@ -66,69 +66,6 @@
       </button>
     </div>
 
-
-    <!--<div class="event_input" v-if="display">-->
-      <!--<button class="btn_cancel" @click="cancelAdd()" >-->
-        <!--<span class="iconfont">&#xe600;</span>-->
-      <!--</button>-->
-      <!--<button class="btn_confirm" @click="confirmAdd()">-->
-        <!--<span class="iconfont">&#xe843;</span>-->
-      <!--</button>-->
-      <!--<div class="input_text">-->
-        <!--<input placeholder="请添加注意事项" v-model="title"/>-->
-      <!--</div>-->
-
-      <!--<div class="taskNav">-->
-        <!--<div class="label">-->
-          <!--<button @click="labelDisplay()"><span class="iconfont">&#xe737;</span></button>-->
-          <!--<el-select v-if="labelVisable" class="label_input"-->
-                     <!--v-model="labelValue"-->
-                     <!--filterable-->
-                     <!--default-first-option-->
-                     <!--allow-create-->
-                     <!--placeholder="输入标签或选择">-->
-            <!--<el-option-->
-              <!--v-for="item in defaultLabel"-->
-              <!--:value="item.value">-->
-            <!--</el-option>-->
-          <!--</el-select>-->
-        <!--</div>-->
-        <!--<div class="priority">-->
-          <!--<button @click="priority">-->
-            <!--<span class="iconfont">&#xe8a5;</span>-->
-          <!--</button>-->
-        <!--</div>-->
-
-        <!--<div class="time">-->
-          <!--<button @click="timeDisply">-->
-            <!--<span class="iconfont">&#xe83d;</span>-->
-          <!--</button>-->
-          <!--<cube-button v-if="timeVisable" v-model="startTime" @click="showDatePicker">Date Picker</cube-button>-->
-          <!--&lt;!&ndash;<el-date-picker&ndash;&gt;-->
-            <!--&lt;!&ndash;class="elDate"&ndash;&gt;-->
-            <!--&lt;!&ndash;v-if="timeVisable"&ndash;&gt;-->
-            <!--&lt;!&ndash;v-model="startTime"&ndash;&gt;-->
-            <!--&lt;!&ndash;type="date"&ndash;&gt;-->
-            <!--&lt;!&ndash;placeholder="选择日期">&ndash;&gt;-->
-          <!--&lt;!&ndash;</el-date-picker>&ndash;&gt;-->
-
-          <!--&lt;!&ndash;min时间组件&ndash;&gt;-->
-          <!--<div class="page-datetime startTime" v-if="timeVisable">-->
-            <!--<div class="page-datetime-wrapper">-->
-              <!--<mt-button @click.native="open('picker3')" v-text="value3" size="large"></mt-button>-->
-              <!--<mt-datetime-picker-->
-                <!--ref="picker3"-->
-                <!--type="time"-->
-                <!--v-model="value3"-->
-                <!--@confirm="">-->
-              <!--</mt-datetime-picker>-->
-            <!--</div>-->
-          <!--</div>-->
-
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-
     <div class="barrier" v-if="display"></div>
     <div class="settingBarrier" v-if="settingVisable"></div>
 
