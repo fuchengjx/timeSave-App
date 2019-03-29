@@ -96,7 +96,13 @@
 
 <style scoped>
   .wrapper{
-    max-width: 405px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+    max-width: 420px;
     margin: 0 auto;
   }
   a{

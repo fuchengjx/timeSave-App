@@ -15,6 +15,7 @@
           <button class="btn_mine"><router-link to="/Mine"><span ref="mineFont" class="iconfont">&#xe608;</span></router-link></button>
       </div>
     </div>
+
   </div>
 </template>
 
