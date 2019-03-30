@@ -33,5 +33,6 @@ export default {
     border-radius: 10px;
     color: white;
     background: #5BA9F4;
+    font-family: PingFangSC-Semibold, sans-serif;
   }
 </style>

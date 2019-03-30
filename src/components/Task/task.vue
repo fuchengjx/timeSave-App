@@ -39,7 +39,7 @@
       <ul>
         <li v-for="(item,index) in unfinishDate"  class="unfinishList">
           <a href="#" :title="item.priority">
-            <el-checkbox v-if="elDisply"  :title="item.priority" class="taskCheck" @change="removeList(index, item.taskId)"></el-checkbox>
+            <cube-checkbox   :title="item.priority" class="taskCheck" @change="removeList(index, item.taskId)"></cube-checkbox>
             <span class="taskTitle">{{item.title}}</span>
             <span class="taskTime">{{item.startDate}}</span>
             <span class="taskLabel">{{item.label}}</span>
@@ -50,7 +50,7 @@
       <ul>
         <li v-for="(item, index) in finishDate" class="complete" v-if="finishDisplay">
           <a href="#">
-            <el-checkbox v-model="full" v-if="elDisply" class="taskCheck" @change="addList(index, item.taskId)"></el-checkbox>
+            <cube-checkbox v-model="full"  class="taskCheck" @change="addList(index, item.taskId)"></cube-checkbox>
             <span class="taskTitle">{{item.title}}</span>
             <!--<span class="taskTime">{{item.startDate}}</span>-->
             <!--<span class="taskLabel">{{item.label}}</span>-->
@@ -78,28 +78,8 @@
     name: "task",
     data () {
       return {
-        title: '',
         display: false,
-        inputValue: '',
-        labelValue: '',
-        labelVisable: false,
         headerShow: true,
-        defaultLabel: [{
-          value: '工作'
-        },{
-          value:'学习'
-        },{
-          value:'生活'
-        },{
-          value:'购物'
-        },{
-          value:'娱乐'
-      }],
-        value2: '',
-        value3: '开始时间点',
-        visible3: false,
-        timeVisable: false,
-        elDisply: true, //控制那个勾选按钮显隐
         settingVisable: false,  //设置栏显隐
         priorityValue: 0,
         startTime: '',
@@ -116,20 +96,6 @@
       }
     },
     methods: {
-      showDatePicker() {
-        if (!this.datePicker) {
-          this.datePicker = this.$createDatePicker({
-            title: 'Date Picker',
-            min: new Date(2008, 7, 8),
-            max: new Date(2020, 9, 20),
-            value: new Date(),
-            onSelect: this.selectHandle,
-            onCancel: this.cancelHandle
-          })
-        }
-
-        this.datePicker.show()
-      },
       addEvent () {
         this.display = true
         this.headerShow = false
@@ -178,59 +144,7 @@
           }
           // this.elDisply = true //渲染完毕勾选立即显示
       },
-      labelDisplay () {
-        this.labelVisable = true
-        document.querySelector(" .label span").style.color = '#0082ff'
-        // document.querySelector(".priority span").style.color = '#333333'
-        document.querySelector(".time span").style.color = '#333333'
-      },
-      confirmAdd (){
-        this.display = false
-        this.headerShow = true
-        this.elDisply = true
-        // console.log(this.startTime.toUTCString())
-        // this.startTime = (this.startTime.toLocaleString())
-        // console.log(this.startTime)
-        let postData = {title: this.title, startDate: this.startTime, startTime:this.value3, priority:this.priorityValue ,label:this.labelValue}
-        axios({
-          method: 'post',
-          url: '/api/task/create',
-          data: postData,
-          headers: {
-            Authorization: this.token
-          }
-        }).then(this.render).catch(function () {
-          alert("请选择开始时间点")
-        })
-        this.priorityValue = 0
-      },
-      cancelAdd () {
-        //清空之前被选中的值
-        this.headerShow = true
-        this.display = false
-        this.elDisply = true
-        this.priorityValue = 0
 
-        this.title = ''
-        this.labelValue = ''
-        this.value3 = '开始时间点'
-        this.startTime = ''
-        this.labelVisable = false
-        this.timeVisable = false //选择时间那部分隐藏
-        // location.reload()
-      },
-      priority () {
-        this.priorityValue = 1
-        document.querySelector(".priority span").style.color = '#0082ff'
-        document.querySelector(".label span").style.color = '#999999'
-        document.querySelector(".time span").style.color = '#333333'
-      },
-      timeDisply () {
-        this.timeVisable = true
-        // document.querySelector(".priority span").style.color = '#333333'
-        document.querySelector(".label span").style.color = '#999999'
-        document.querySelector(".time span").style.color = '#0082ff'
-      },
       settingCancel () {
         this.settingVisable = false
         this.finishDisplay = !this.finishDisplay
@@ -274,7 +188,7 @@
           this.unfinishDate.splice(idx,1);                                 //删除List这条数据 DOM随之更新渲染
           var container = document.querySelector('.swipeleft');           //将展开的DOM归位 除掉样式类
           container.className="";
-          this.expansion=null;
+          this.expansion = null;
           let data = {"taskId" : taskId}
           axios({
             method:'delete',
@@ -372,7 +286,7 @@
 </script>
 <style scoped>
   .iconfont{
-    font-size: 25.5px;
+    font-size: 25px;
   }
   body{
     font-size: .14rem;
@@ -444,6 +358,7 @@
     bottom: 1rem;
     left: 0;
     right: 0;
+    overflow: hidden;
     font-family: PingFangSC-Semibold, sans-serif;
     max-width: 405px;
     margin: 0 auto;
@@ -539,88 +454,6 @@
     left: 0;
     right: 0;
     z-index: 10;
-  }
-  .event_input{
-    position: absolute;
-    top: 20px;
-    width: 9.4rem;
-    padding: 0 0.3rem 0 0.3rem;
-    z-index: 999;
-    font-size: 20px;
-  }
-  .btn_confirm{
-    float: right;
-  }
-  .btn_confirm .iconfont{
-    font-size: 25px;
-  }
-  .event_input button{
-    border: 0;
-    font-size: 14px;
-    background: white;
-    /*background-image: url("../../assets/images/clock.jpg");*/
-  }
-  .startTime button{
-    color: #c0c4cc;
-    padding-left: 30px;
-    background: white url("../../assets/images/clock.jpg") no-repeat 10px 13px;
-  }
-  .input_text input{
-    height: 1rem;
-    width: 9.4rem;
-    font-size: 24px;
-    border: 0;
-    padding-top: 5px;
-    padding-bottom: 12px;
-  }
-  .taskNav{
-    position: relative;
-  }
-  .taskNav div{
-    display: inline-block;
-  }
-  .label_input{
-    position: absolute;
-  }
-  .label span{
-    color: gray;
-  }
-  .priority{
-    position: absolute;
-    left: 6.53rem;
-    color: blue;
-  }
-  .priority .iconfont{
-    font-size: 21.5px;
-  }
-  .time{
-    position:absolute;
-    right: 0.07rem;
-  }
-  .time .iconfont{
-    font-size: 18px;
-  }
-  .elDate{
-    position: absolute;
-    top: 71px;
-    left: -300px;
-  }
-   .page-datetime .page-datetime-wrapper{
-    position: absolute;
-    top: 112px;
-    left: -300px;
-    display: flex;
-    justify-content: flex-start;
-  }
-  .page-datetime span{
-    font-size: 10px;
-  }
-  .timeLength{
-    position: absolute;
-    top: 420px;
-    left: -300px;
-    display: flex;
-    justify-content: flex-start;
   }
   .moreSetting{
     position: absolute;

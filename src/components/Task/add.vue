@@ -2,7 +2,6 @@
   <div>
     <div class="event_input">
 
-
       <button class="btn_cancel" @click="cancelAdd()" >
         <span class="iconfont">&#xe600;</span>
       </button>
@@ -10,7 +9,7 @@
         <span class="iconfont">&#xe843;</span>
       </button>
       <div class="input_text">
-        <input placeholder="请添加注意事项" v-model="title"/>
+        <input placeholder=" 请添加注意事项" v-model="title"/>
       </div>
 
       <div class="taskNav">
@@ -39,7 +38,8 @@
             <cube-button
               class="cBtn"
               :auto-Pop="true"
-              @click="showDateSegmentPicker"></cube-button>
+              @click="showDateSegmentPicker">
+            </cube-button>
           </button>
         </div>
       </div>
@@ -97,6 +97,7 @@
       },
       confirmAdd () {
         let postData = {title: this.title, startDate: this.startDate, startTime: this.startTime, label: this.labelValue, priority: this.priorityValue}
+        console.log(postData)
         this.axios({
           methods: 'post',
           url: '/api/task/create',
@@ -110,6 +111,9 @@
           if(res.data.code) {
             this.$router.push({ path: '/'})
           }
+        }).catch( (err)=> {
+          this.Msg = err + "\n\n" + "       创建任务失败"
+          this.Popup()
         })
       },
       labelDisplay () {
@@ -139,13 +143,10 @@
           this.startTime = formatedTime[1][0] + ":" + formatedTime[1][1]
           console.log("startTime" + this.startTime)
           this.$createDialog({
-
             type: 'warn',
             title: `标题: ${selectedTime}`,
             content: `Selected Items: <br/>日期: ${formatedTime[0]} <br/>选择时间: ${formatedTime[1]}`,
             icon: 'cubeic-alert'
-          },() => {
-            //
           }).show()
         },
       })
@@ -161,6 +162,9 @@
     z-index: 999;
     font-size: 20px;
     background: white;
+  }
+  button .iconfont{
+    font-size: 25px;
   }
   .btn_confirm{
     float: right;
@@ -193,9 +197,6 @@
   .taskNav div{
     display: inline-block;
   }
-  .label_input{
-    position: absolute;
-  }
   .label span{
     color: gray;
   }
@@ -213,58 +214,26 @@
     width: 30px;
     height: 30px;
   }
-  .time span{
+  .time button {
     position: relative;
+    overflow: hidden;
+  }
+  .time span{
+    position: absolute;
+    right: 17px;
+    bottom: 5px;
     z-index: 100;
   }
   .cBtn{
-    position: absolute;
-    bottom: 10px;
-    right:  5px;
-    z-index: 0;
+    padding-top: 10px;
+    /*position: absolute;*/
+    /*bottom: 10px;*/
+    /*right:  5px;*/
+    /*z-index: 0;*/
   }
   .time .iconfont{
     z-index: 100;
     font-size: 18px;
   }
-  .elDate{
-    position: absolute;
-    top: 71px;
-    left: -300px;
-  }
-  .page-datetime .page-datetime-wrapper{
-    position: absolute;
-    top: 112px;
-    left: -300px;
-    display: flex;
-    justify-content: flex-start;
-  }
-  .page-datetime span{
-    font-size: 10px;
-  }
-  .timeLength{
-    position: absolute;
-    top: 420px;
-    left: -300px;
-    display: flex;
-    justify-content: flex-start;
-  }
-  .moreSetting{
-    position: absolute;
-    width: 5rem;
-    background: white;
-    right: 0;
-    top:1rem;
-    font-size: 16px;
-    z-index:999;
-    overflow: auto;
-  }
-  .moreSetting :first-child{
-    margin-top: 14px;
-  }
-  .moreSetting div{
-    float: left;
-    margin-left: 14px;
-    margin-bottom: 14px;
-  }
+
 </style>
