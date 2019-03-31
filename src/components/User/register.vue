@@ -54,9 +54,9 @@
           if(this.verifyCode !== '') {
             if (this.password !== '') {
               let postData = { email: this.email, password: this.password, verifyCode: this.verifyCode }
-              this.axios.post('/api/user/register', postData).then(this.todoSomething).catch( (res)=> {
-                console.log(res)
-                this.Msg = "注册失败"
+              this.axios.post('/api/user/register', postData).then(this.todoSomething).catch( (err)=> {
+                console.log("error",err.response)
+                this.Msg = err.response.data.message
                 this.Popup()
               })
             } else {
@@ -78,7 +78,7 @@
         if(res.data.status) {
           setTimeout( () => {
             if (res.data.status){
-              localStorage.setItem("jwtToken",res.data.data.token) //本地存储Token注册后直接进入首页
+              localStorage.setItem("jwtToken",res.data.token) //本地存储Token注册后直接进入首页
               localStorage.setItem("shixianEmail", this.email)
               this.$router.push({path: '/'})
             }

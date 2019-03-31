@@ -57,6 +57,7 @@
     name: "add",
     data () {
       return {
+        token: localStorage.jwtToken,
         timeData: [
           {
             is: 'cube-date-picker',
@@ -82,7 +83,6 @@
         labelVisable: false,
         priorityValue: 0,
 
-        startDate: '',
         startTime: '',
 
         timeVisable: false,
@@ -96,19 +96,19 @@
         this.$router.push({ path: '/'})  //暂时先看看直接跳转到根路由是否会把该组件的数据清空
       },
       confirmAdd () {
-        let postData = {title: this.title, startDate: this.startDate, startTime: this.startTime, label: this.labelValue, priority: this.priorityValue}
+        let postData = {title: this.title, startTime: this.startTime, label: this.labelValue, priority: this.priorityValue}
         console.log(postData)
         this.axios({
-          methods: 'post',
+          method: 'post',
           url: '/api/task/create',
           data: postData,
-          header: {
+          headers: {
             Authorization: this.token
           }
         }).then( (res)=> {
-          this.Msg = res.data.msg
+          this.Msg = res.data.message
           this.Popup ()
-          if(res.data.code) {
+          if(res.data.status) {
             this.$router.push({ path: '/'})
           }
         }).catch( (err)=> {
@@ -138,10 +138,9 @@
       this.dateSegmentPicker = this.$createSegmentPicker({
         data: this.timeData,
         onSelect: (selectedTime, selectedText, formatedTime) => {
-          this.startDate = formatedTime[0][0] + "-" + formatedTime[0][1] + "-" + formatedTime[0][2]
-          console.log("startDate" + this.startDate)
-          this.startTime = formatedTime[1][0] + ":" + formatedTime[1][1]
-          console.log("startTime" + this.startTime)
+          this.startTime = formatedTime[0][0] + "-" + formatedTime[0][1] + "-" + formatedTime[0][2] + " " + formatedTime[1][0] + ":" + formatedTime[1][1] + ":00"
+          console.log("startTime  " + this.startTime)
+
           this.$createDialog({
             type: 'warn',
             title: `标题: ${selectedTime}`,

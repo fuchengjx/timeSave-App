@@ -46,8 +46,8 @@
       login () {
         if(this.isEmail(this.email)) {
           let postData = { email: this.email, password: this.password }
-          this.axios.post('/api/user/login', postData).then(this.todoSomething).catch( ()=> {
-            this.Msg = '登录失败'
+          this.axios.post('/api/user/login', postData).then(this.todoSomething).catch( (err) => {
+            this.Msg = '登录失败' + err.response.data
             this.Popup()
           })
         } else {

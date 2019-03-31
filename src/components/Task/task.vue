@@ -106,8 +106,8 @@
         if (res.data.code) {
           // console.log("创建成功");
           axios({
-            method:'get',
-            url:'/api/task/list',
+            method: 'get',
+            url: '/api/task/list',
             headers: {
               Authorization: this.token
             }
@@ -174,7 +174,7 @@
         this.finishDate.splice(index,1)
         this.checked = this.finishDate.length
         let data = {"taskId" : taskId}
-        axios({
+        this.axios({
           method:'post',
           url:'/api/task/unfinish',
           data:data,
@@ -190,7 +190,7 @@
           container.className="";
           this.expansion = null;
           let data = {"taskId" : taskId}
-          axios({
+          this.axios({
             method:'delete',
             url:'/api/task/delete',
             data: data,
