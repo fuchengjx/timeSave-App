@@ -175,12 +175,6 @@
     border: 0;
     font-size: 14px;
     background: white;
-    /*background-image: url("../../assets/images/clock.jpg");*/
-  }
-  .startTime button{
-    color: #c0c4cc;
-    padding-left: 30px;
-    background: white url("../../assets/images/clock.jpg") no-repeat 10px 13px;
   }
   .input_text input{
     height: 1rem;
@@ -188,7 +182,7 @@
     font-size: 24px;
     border: 0;
     padding-top: 5px;
-    padding-bottom: 12px;
+    margin-bottom: 12px;
   }
   .taskNav{
     position: relative;
@@ -205,7 +199,7 @@
     color: blue;
   }
   .priority .iconfont{
-    font-size: 21.5px;
+    font-size: 22px;
   }
   .time{
     position:absolute;
@@ -216,23 +210,13 @@
   .time button {
     position: relative;
     overflow: hidden;
-  }
-  .time span{
-    position: absolute;
-    right: 17px;
-    bottom: 5px;
-    z-index: 100;
-  }
-  .cBtn{
-    padding-top: 10px;
-    /*position: absolute;*/
-    /*bottom: 10px;*/
-    /*right:  5px;*/
-    /*z-index: 0;*/
+
   }
   .time .iconfont{
     z-index: 100;
-    font-size: 18px;
+    font-size: 20px;
   }
-
+  .cBtn{
+    padding-top: 10px;
+  }
 </style>

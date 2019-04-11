@@ -78,7 +78,7 @@
         if(res.data.status) {
           setTimeout( () => {
             if (res.data.status){
-              localStorage.setItem("jwtToken",res.data.token) //本地存储Token注册后直接进入首页
+              localStorage.setItem("jwtToken",res.data.data.token) //本地存储Token注册后直接进入首页
               localStorage.setItem("shixianEmail", this.email)
               this.$router.push({path: '/'})
             }
