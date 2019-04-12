@@ -102,98 +102,86 @@
       },
       goBack () {
         this.$router.go(-1)
+        this.$router.go(-1)
       }
     }
   }
 </script>
 
-<style scoped>
-  .wrapper{
-    max-width: 405px;
-    margin: 0 auto;
-  }
-  .bg{
-    position: absolute;
-    top: 10rem;
-    bottom:0;
-    right: 0;
-    left: 0;
-    background:#FAFAFA ;
-  }
-  .header{
-    position: relative;
-    background: white;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    height: 1rem;
-    line-height: 1rem;
-    padding-bottom: 4px;
-  }
-  .header .iconfont{
-    position: absolute;
-    left: 0;
-    font-size: 24px;
-    padding-left: 15px;
-  }
-  .safe{
-    border-top: 1px solid rgb(176,176,176);
-    width: 100%;
-    height: 188px;
-    text-align: center;
-    background: url("../../assets/images/safe.png") no-repeat center;
-  }
-  .safe span{
-    display: block;
-    font-size: 18px;
-    margin-top: 123px;
-  }
-  .content{
-    position: relative;  /*提升index层级，防止被覆盖*/
-    background: white;
-  }
-  .content div{
-    height: 50px;
-    line-height: 50px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-  .content div input{
-    height: 50px;
-    line-height: 50px;
-    color:#C0C0C0;
-    font-size: 16px;
-    border: 0;
-    flex: 7.34;
-    padding-left: 10px;
-  }
-  .content div span{
-    padding-left: 15px;
-    font-size: 18px;
-    flex: 2.66;
-  }
-  .verify{
-    position: relative;
-  }
-  .verifyBtn{
-    position: absolute;
-    right: 0;
-    font-size: 16px;
-    color: #C0C0C0;
-    padding-right: 23px;
-  }
-  .btn_verify{
-    display: block;
-    position: relative;
-    margin: 38px auto 11px auto;
-    width: 6rem;
-    height: 1rem;
-    background: #292421;
-    border: 0;
-    border-radius: 10px;
-    color:white ;
-    box-shadow: 0px 3px 6px rgb(220,220,220);
-    font-size: 16px;
-  }
+<style lang="stylus" scoped>
+  .wrapper
+    max-width 420px
+    margin 0 auto
+    .bg
+      position absolute
+      top 10rem
+      bottom 0
+      right 0
+      left 0
+      background #FAFAFA
+    .header
+      position relative
+      height 1rem
+      padding-bottom 4px
+      font-size 24px
+      font-weight bold
+      line-height 1rem
+      text-align center
+      background white
+     .iconfont
+       position absolute
+       left 0
+       padding-left 15px
+       font-size 24px
+    .safe
+      width 100%
+      height 188px
+      border-top 1px solid rgb(176,176,176)
+      text-align center
+      background url("../../assets/images/safe.png") no-repeat center
+      span
+       display block
+       margin-top 123px
+       font-size 18px
+    .content
+      position relative  /*提升index层级，防止被覆盖*/
+      background white
+      div
+        flex-direction row
+        justify-content flex-start
+        display flex
+        height 50px
+        line-height 50px
+        input
+           flex 7.34
+           height 50px
+           padding-left 10px
+           border 0
+           line-height 50px
+           font-size 16px
+           color #C0C0C0
+        span
+           flex 2.66
+           padding-left 15px
+           font-size 18px
+     .verify
+       position relative
+       .verifyBtn
+         position absolute
+         right 0
+         padding-right 23px
+         font-size 16px
+         color #C0C0C0
+     .btn_verify
+       display: block;
+       position: relative;
+       width: 6rem;
+       height: 1rem;
+       margin: 60px auto 11px auto;
+       border: 0;
+       border-radius: 10px;
+       box-shadow: 0px 3px 6px rgb(220,220,220);
+       background: #292421;
+       font-size: 16px;
+       color:white ;
 </style>
