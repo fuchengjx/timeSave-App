@@ -128,11 +128,13 @@
       line-height 1rem
       text-align center
       background white
+      color #242921
      .iconfont
        position absolute
        left 0
        padding-left 15px
        font-size 24px
+       color #595959
     .safe
       width 100%
       height 188px
@@ -171,17 +173,17 @@
          right 0
          padding-right 23px
          font-size 16px
-         color #C0C0C0
+         color #242921
      .btn_verify
-       display: block;
-       position: relative;
-       width: 6rem;
-       height: 1rem;
-       margin: 60px auto 11px auto;
-       border: 0;
-       border-radius: 10px;
-       box-shadow: 0px 3px 6px rgb(220,220,220);
-       background: #292421;
-       font-size: 16px;
-       color:white ;
+       display block
+       position relative
+       width 6rem
+       height 1rem
+       margin 60px auto 11px auto
+       border 0
+       border-radius 10px
+       box-shadow 0px 3px 6px rgb(220,220,220)
+       background #595959
+       font-size 16px
+       color white
 </style>

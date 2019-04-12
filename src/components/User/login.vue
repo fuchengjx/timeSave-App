@@ -74,10 +74,10 @@
 <style lang="stylus" scoped>
   .login_form
     position relative
-    width 7.41rem
+    width 8.2rem
     margin 54px auto 0 auto
    .login_image
-     width 6.134rem
+     width 8rem
      display block
      margin 0 auto
    .content
@@ -87,10 +87,10 @@
       position absolute
       font-size 25px
     input
-      width 6.5rem
+      width 7rem
       height 60px
       padding-left 1rem
-      border-bottom 1px solid rgb(176,176,176) 
+      border-bottom 1px solid rgb(176,176,176)
       border-top 0px
       border-left 0px
       border-right 0px
@@ -109,24 +109,24 @@
       line-height 60px
       height 60px
      .btn_login
-        width 7.41rem
-        height 1rem
+        width 8.2rem
+        height 1.2rem
         margin-top: 48px
-        margin-bottom 11px
+        margin-bottom 18px
         border 0
         border-radius 10px
         box-shadow 0px 3px 6px rgb(220,220,220)
         font-size 16px
-        background #292421
-        color white 
+        background #595959
+        color white
      .register
        float left
        font-size 18px
-       color #3D3D3D   
+       color #000000
        text-decoration none
      .forget
        float right
        font-size  18px
-       color #3D3D3D 
+       color #000000
        text-decoration none
 </style>

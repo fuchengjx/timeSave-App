@@ -107,100 +107,84 @@
   }
 </script>
 
-<style scoped>
-  .register{
-    max-width: 405px;
-    margin: 0 auto;
-  }
+<style lang="stylus" scoped>
+  .register
+    max-width 420px
+    margin 0 auto
+
   a{
     text-decoration: none;
     color: #292421;
   }
-  .register{
-    font-family:PingFangSC-Semibold, sans-serif;
-  }
-  .header{
-    padding-top: 1.1rem;
-    width: 7.5rem;
-    display: block;
-    margin: 0 auto;
-  }
-  .header span{
-    font-size: 20px;
-  }
-  .register_form{
-    width: 7.5rem;
-    margin: 60px auto 0 auto;
-    position: relative;
-  }
-  .register_image{
-    width: 7.5rem;
-    display: block;
-    margin: 0 auto;
-  }
-  .content{
-    position: relative;
-  }
-  input{
-    width: 6.5rem;
-    height: 60px;
-    line-height: 60px;
-    outline: none;
-    border-bottom: 1px solid rgb(176,176,176) ;
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
-    padding-left: 1rem;
-    font-size: 18px;
-  }
-  .iconfont{
-    font-size: 25px;
-  }
-  .account_number{
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    line-height: 60px;
-    height: 60px;
-  }
-  .account_number i{
-    position: absolute;
-  }
-  .account_verify{
-    display: flex;
-    flex-direction: row;
-    line-height: 60px;
-    height: 60px;
-    padding-bottom: 3px;
-  }
-  .account_verify i{
-    position: absolute;
-  }
-  .account_password{
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    line-height: 60px;
-    height: 60px;
-  }
-  .account_password i{
-    position: absolute;
-  }
-  .btn_verify{
-    position: absolute;
-    right: 0;
-    font-size: 18px;
-  }
-  .btn_register{
-    margin-top: 38px;
-    margin-bottom: 11px;
-    width: 7.5rem;
-    height:1.25rem;
-    background:#292421;
-    border: 0;
-    border-radius: 10px;
-    color:white ;
-    box-shadow: 0 3px 6px rgb(220,220,220);
-    font-size: 16px;
-  }
+    .header
+      display block
+      width 8rem
+      padding-top 1.1rem
+      margin 0 auto
+      span
+       font-size 25px
+       color #242921
+    .register_form
+      position relative
+      width 8rem
+      margin 20px auto 0 auto
+      .register_image
+        display block
+        width 8rem
+        margin 0 auto 20px auto
+      .content
+        position relative
+        input
+          width 7rem
+          height 60px
+          padding-left 1rem
+          border-bottom 1px solid rgb(176,176,176)
+          border-top 0px
+          border-left 0px
+          border-right 0px
+          font-size 18px
+          line-height 60px
+          outline none
+        .iconfont
+          font-size 25px
+          color #595959
+       .account_number
+         position relative
+         display flex
+         flex-direction row
+         line-height 60px
+         height 60px
+         i
+           position absolute
+       .account_verify
+         display flex
+         flex-direction row
+         line-height 60px
+         height 60px
+         padding-bottom 3px
+         i
+           position absolute
+       .account_password
+         position relative
+         display flex
+         flex-direction row
+         height 60px
+         line-height 60px
+         i
+          position absolute
+      .btn_verify
+        position absolute
+        right 0
+        font-size 18px
+      .btn_register
+        width 8rem
+        height 1.25rem
+        margin-top 38px
+        margin-bottom 11px
+        borde: 0
+        border-radius 10px
+        box-shadow 0 3px 6px rgb(220,220,220)
+        font-size 16px
+        background #595959
+        color white
 </style>
