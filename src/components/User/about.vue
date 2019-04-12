@@ -7,8 +7,7 @@
     <img class="haowai" src="../../assets/images/号外.jpg">
     <div class="aboutContent">
       <h2>团队介绍及开发需求</h2>
-
-      <p>  你好哇，我们终于见面啦~
+      <p>你好哇，我们终于见面啦~
   真让人激动，在一个效率至上的时间管理工具里，你愿意花点时间来了解我们的故事。
   那认真听，现在，故事要开始了：
   想不想知道，你正使用的这个叫“时现”的东西，是怎么来的？
@@ -26,8 +25,6 @@
   那些开天辟地的创举固然伟大，也往往意味着稚嫩和不完善。而我们认为在不断推动着发展的，并不是开头和结尾，而是一次次，竭力向更深层面的探索与改进。哪怕只是找到了某个更合你心意的按钮位置，某个更舒服的呈现页面，更稳定的运行，对我们而言都是巨大的成功。我们希望，你正使用着的这个时间管理工具，可以带给你更好的用户体验，能满足绝大部分你对时间管理的需求，最重要的是，让你抓住对你而言，无比珍贵的分分秒秒。
   “时现”这个名字，灵感来源于林庚先生的“把一切时光变成现在。”这句话。如这句话所言，我们希望这个14天就出生的小家伙，能真正地将你的一切时光统统收入其中，让每时每刻都成为最值得珍惜的当下。
   它还会成长，故事仍在继续。所以，你决定好和我们一起见证这一切了吗？
-
-
       </p>
     </div>
     <img class="bg" src="../../assets/images/时现logoBg.png">
@@ -38,59 +35,51 @@
   export default {
     name: "about",
     methods: {
-      goBack () {
+      goBack() {
         this.$router.go(-1)
       }
     }
   }
 </script>
 
-<style scoped>
-  .wrapper{
-    max-width: 405px;
-    margin: 0 auto;
-  }
-  .header{
-    position: relative;
-    height: 1rem;
-    line-height: 1rem;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-  }
-  .haowai{
-    height: 153px;
-  }
-  img{
-    width: 100%;
-  }
-  .header .iconfont{
-    position: absolute;
-    left: 0;
-    font-size: 24px;
-    padding-left: 15px;
-  }
-  .aboutContent{
-    width: 8.4rem;
-    margin: 0 auto;
-    white-space: pre-wrap;  //使文本保持原来的格式，不被隐藏，又有换行等
-    word-break: break-all;
-    font-size: 14px;
-    line-height: 24px;
-    max-width: 405px;
-  }
-  .aboutContent h2{
-    color: #0082FF;
-    margin-bottom: -10px;
-  }
-  .bg{
-    position: fixed;
-    top: 7rem;
-    width: 205px;
-    height: 270px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-  }
-
+<style lang="stylus" scoped>
+  .wrapper
+    max-width 420px
+    margin 0 auto
+    .header
+      position relative
+      height 1rem
+      line-height: 1rem
+      text-align: center
+      font-size: 24px
+      font-weight: bold
+      .iconfont
+        position absolute
+        left 0
+        padding-left 10px
+        font-size 24px
+    .haowai
+      width 100%
+      height 153px
+    .aboutContent
+      max-width: 420px
+      width 8.4rem
+      margin 0 auto
+      font-size 14px
+      white-space pre-wrap  //使文本保持原来的格式，不被隐藏，又有换行等
+      word-break break-all
+      line-height 24px
+      h2
+       margin-bottom -10px
+       margin-top 10px
+       font-size 23px
+       color #0082FF
+    .bg
+      position fixed
+      left 0
+      right 0
+      top 7rem
+      width 205px
+      height 270px
+      margin 0 auto
 </style>

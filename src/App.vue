@@ -11,6 +11,9 @@ export default {
 </script>
 
 <style>
+  #app {
+    font-family: PingFangSC-Semibold, sans-serif;
+  }
   a{
     text-decoration: none;
     outline: none;
