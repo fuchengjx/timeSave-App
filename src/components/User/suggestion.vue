@@ -94,103 +94,86 @@
   }
 </script>
 
-<style scoped>
-  .wrapper{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    overflow: hidden;
-    max-width: 420px;
-    margin: 0 auto;
-  }
-  a{
-    text-decoration: none;
-  }
-  .header{
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    position: relative;
-    height: 1rem;
-    line-height: 1rem;
-  }
-  .header .iconfont{
-    position: absolute;
-    left: 0;
-    font-size: 24px;
-    padding-left: 15px;
-  }
-  .classify{
-    font-size: 18px;
-    background: #FAFAFA;
-  }
-  .classifyTitle{
-    padding-left: 20px;
-    height: 40px;
-    line-height: 40px;
-  }
-  .classifyBtn{
-    height: 50px;
-    line-height: 35px;
-    font-size: 16px;
-    background: white;
-    padding-left: 20px;
-  }
-  .feedback{
-    font-size: 18px;
-    background:#FAFAFA ;
-  }
-  .feedbackTitle{
-    padding-left: 20px;
-    height: 40px;
-    line-height: 40px;
-  }
-  textarea{
-    font-size: 16px;
-    padding-left: 20px;
-    width: 100%;
-    height: 173px;
-    border: 0;
-  }
-  .contact{
-    font-size: 18px;
-    background: #FAFAFA ;
-  }
-  .contactTitle{
-    padding-left: 20px;
-    height: 40px;
-    line-height: 40px;
-  }
-  .contact_input{
-    font-size: 16px;
-    border: 0;
-    width: 100%;
-    padding-left: 20px;
-    height: 40px;
-    line-height: 40px;
-    color:#C0C0C0;
-  }
-  .submitBtn{
-    border: 0;
-    background: #ffffff;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    color: #0082FF ;
-    position: absolute;
-    bottom: -47px;
-  }
-  .bg{
-    position: absolute;
-    top: 1rem;
-    bottom: 50px;
-    right: 0;
-    left: 0;
-    background: #FAFAFA ;
-    max-width: 405px;
-    margin: 0 auto;
-  }
-
+<style lang="stylus" scoped>
+  .wrapper
+    position absolute
+    top 0
+    bottom 0
+    right 0
+    left 0
+    max-width 420px
+    margin 0 auto
+    overflow hidden
+    .header
+      text-align center
+      font-size 24px
+      font-weight bold
+      position relative
+      height 1rem
+      line-height 1rem
+      .iconfont
+        position absolute
+        left 0
+        font-size 24px
+        padding-left 15px
+        color: #242921
+    .bg
+      position absolute
+      top 1rem
+      bottom 50px
+      right 0
+      left 0
+      background #FAFAFA
+      max-width 420px
+      margin 0 auto
+    .classify
+      font-size 18px
+      background #FAFAFA
+      .classifyTitle
+        height 40px
+        padding-left 20px
+        line-height 40px
+      .classifyBtn
+        height 50px
+        padding-left 20px
+        line-height 35px
+        font-size 16px
+        background white
+    .feedback
+      font-size 18px
+      background #FAFAFA
+      .feedbackTitle
+        height 40px
+        padding-left 20px
+        line-height 40px
+      textarea
+        width 100%
+        height 173px
+        padding-left 20px
+        border 0
+        font-size 16px
+   .contact
+     font-size 18px
+     background #FAFAFA
+     .contactTitle
+       height 40px
+       padding-left 20px
+       line-height 40px
+     .contact_input
+       width 100%
+       height 40px
+       padding-left 20px
+       borde: 0
+       font-size 16px
+       line-height 40px
+       color #C0C0C0
+     .submitBtn
+       position absolute
+       bottom -47px
+       width 100%
+       height 50px
+       border 0
+       line-height 50px
+       color #0082FF
+       background #ffffff
 </style>
