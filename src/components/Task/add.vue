@@ -93,7 +93,7 @@
         this.dateSegmentPicker.show()
       },
       cancelAdd () {
-        this.$router.push({ path: '/'})  //暂时先看看直接跳转到根路由是否会把该组件的数据清空
+        this.$router.push({ path: '/'})
       },
       confirmAdd () {
         let postData = {title: this.title, startTime: this.startTime, label: this.labelValue, priority: this.priorityValue}
@@ -140,83 +140,58 @@
         onSelect: (selectedTime, selectedText, formatedTime) => {
           this.startTime = formatedTime[0][0] + "-" + formatedTime[0][1] + "-" + formatedTime[0][2] + " " + formatedTime[1][0] + ":" + formatedTime[1][1] + ":00"
           console.log("startTime  " + this.startTime)
-
-          this.$createDialog({
-            type: 'warn',
-            title: `标题: ${selectedTime}`,
-            content: `Selected Items: <br/>日期: ${formatedTime[0]} <br/>选择时间: ${formatedTime[1]}`,
-            icon: 'cubeic-alert'
-          }).show()
         },
       })
     }
   }
 </script>
 
-<style scoped>
-  .event_input{
-    position: absolute;
-    width: 9.4rem;
-    padding: 0.2rem 0.3rem 2rem 0.3rem;
-    z-index: 999;
-    font-size: 20px;
-    background: white;
-  }
-  button .iconfont{
-    font-size: 25px;
-  }
-  .btn_confirm{
-    float: right;
-  }
-  .btn_confirm .iconfont{
-    font-size: 25px;
-  }
-  .event_input button{
-    border: 0;
-    font-size: 14px;
-    background: white;
-  }
-  .input_text input{
-    height: 1rem;
-    width: 9.4rem;
-    font-size: 24px;
-    border: 0;
-    padding-top: 5px;
-    margin-bottom: 12px;
-  }
-  .taskNav{
-    position: relative;
-  }
-  .taskNav div{
-    display: inline-block;
-  }
-  .label span{
-    color: gray;
-  }
-  .priority{
-    position: absolute;
-    left: 6.53rem;
-    color: blue;
-  }
-  .priority .iconfont{
-    font-size: 22px;
-  }
-  .time{
-    position:absolute;
-    right: 0.07rem;
-    width: 30px;
-    height: 30px;
-  }
-  .time button {
-    position: relative;
-    overflow: hidden;
+<style lang="stylus" scoped>
+  .event_input
+    position absolute
+    width 9.4rem
+    padding 0.4rem 0.3rem 2rem 0.3rem
+    font-size 20px
+    background white
+    z-index 999
+    button
+     border 0
+     font-size 14px
+     background white
+    button .iconfont
+      font-size: 25px;
+    .btn_confirm
+      float: right;
+    .input_text input
+      height 1rem
+      width 9.4rem
+      padding-top 5px
+      margin-bottom 12px
+      border 0
+      font-size 24px
+    .taskNav
+      position relative
+      div
+        display inline-block
+    .label span
+      color gray
+    .priority
+      position absolute
+      left 6.53rem
+      .iconfont
+        font-size 25px
+    .time
+      position absolute
+      right 0.2rem
+      width 30px
+      height 30px
+      .time button
+        position relative
+        overflow hidden
+    .time span.iconfont
+      z-index 100
+      font-size 22px
+      .cBtn
+        padding-top 10px
 
-  }
-  .time .iconfont{
-    z-index: 100;
-    font-size: 20px;
-  }
-  .cBtn{
-    padding-top: 10px;
-  }
 </style>
