@@ -58,7 +58,7 @@
 
 <style lang="stylus" scoped>
   .wrapper
-    max-width 405px
+    max-width 420px
     margin 0 auto
   a{
     text-decoration: none;
@@ -79,7 +79,7 @@
       bottom: 1.2rem
       right: 0
       left: 0
-      max-width: 405px
+      max-width: 420px
       margin: 0 auto
       background: #FAFAFA
     .personage

@@ -116,13 +116,10 @@
 </script>
 
 <style lang="stylus" scoped>
-  .WCalendar
+  .wCalendar
     width 100%
     max-width 420px
     margin 0 auto
-    display flex
-    justify-content space-around
-    flex-wrap wrap
    .header
      height 1rem
      padding-bottom: 4px;
@@ -197,7 +194,6 @@
          justify-content space-around
          flex-wrap wrap
          padding-top 19px
-         overflow hidden
       .mainHead
         display flex
         justify-content center
@@ -231,7 +227,6 @@
        background-color: #f93d3a;
        color: #fff;
        box-shadow: 0 2px 6px rgba(171, 171, 171, 0.5);
-
      .blockToday
         transition: 0.5s all;
         background-color: #f93d3a;

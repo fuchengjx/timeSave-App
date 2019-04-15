@@ -91,9 +91,9 @@ Vue.use(RecycleList)
 
 Vue.config.productionTip = false
 
-import FastClick from 'fastclick' //引入fastclick,处理移动端300ms延迟
+// import FastClick from 'fastclick' //引入fastclick,处理移动端300ms延迟
 import 'lib-flexible/flexible.js' //vue rem移动端自适适配
-FastClick.attach(document.body) //将fastClicl绑定到body身上
+// FastClick.attach(document.body) //将fastClicl绑定到body身上
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios,axios)
