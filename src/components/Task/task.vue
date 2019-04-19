@@ -105,9 +105,10 @@
         this.$router.push({path: '/Task/add'})
       },
       render (res) {
+        console.log("state: ",$store.state.data) //测试state
         if (res.data.code) {
           // console.log("创建成功");
-          axios({
+          this.axios({
             method: 'get',
             url: '/api/task/list',
             headers: {
@@ -121,16 +122,7 @@
         }
       },
       renderList (res) {
-        //这一部分是点击添加任务后恢复添加页面原来的模样，该隐藏的隐藏，值该清零的清零
-        this.title =  ''
-        this.labelValue =  ''
-        this.value3 = '开始时间点'
-        this.startTime = ''
-        this.priorityValue = 0
-        this.labelVisable = false
-        this.timeVisable = false //选择时间那部分隐藏
-
-          if(res.data.code){
+          if(res.data.status){
             console.log("获取任务列表成功")
             this.unfinishDate = res.data.data.unfinish
             this.finishDate = res.data.data.finish
@@ -162,7 +154,7 @@
         this.unfinishDate.splice(index,1)
         this.checked = this.finishDate.length
         let data = {"taskId" : taskId}
-        axios({
+        this.axios({
           method: 'post',
           data: data,
           url: '/api/task/finish',
@@ -219,13 +211,13 @@
         this.settingVisable = !this.settingVisable
       },
       delCheck: function(name, idx, taskId){
-        if(confirm("确认删除"+ name)){
+        if (confirm("确认删除"+ name)) {
           this.finishDate.splice(idx, 1);                                 //删除List这条数据 DOM随之更新渲染
           var container = document.querySelector('.swipeleft');           //将展开的DOM归位 除掉样式类
           container.className= "";
           this.expansion= null;
           let data = {"taskId" : taskId}
-          axios({
+          this.axios({
             method: 'delete',
             url: '/api/task/delete',
             data: data,
@@ -244,13 +236,14 @@
       }
     },
     created () {
-      // axios({
-      //   method: 'get',
-      //   url: '/api/task/list',
-      //   headers: {
-      //     Authorization: this.token
-      //   }
-      // }).then(this.renderList).catch(this.loginFail)
+      console.log("created")
+      this.axios({
+        method: 'get',
+        url: '/api/task/list',
+        headers: {
+          Authorization: this.token
+        }
+      }).then(this.renderList).catch(this.loginFail)
     },
     updated () {
       setTimeout( () => {
@@ -352,43 +345,59 @@
       .btn_more
         font-size: 25px;
 
-  .list
+  .list {
     overflow hidden
     margin-top 1rem
     padding-bottom 1rem
     z-index: -1
-    .list ul
-      float left;
+  }
+
+    .list ul {
+      float left
       margin-left -1.1rem
-    .list li
+    }
+
+    .list li {
       width:125%
       height 66px
       line-height 66px
       overflow hidden
       list-style none
-    .list li a
+    }
+
+    .list li a {
       position relative
       width 10rem
       display block
       -webkit-transition all 0.3s
       transition all 0.3s
-    .list li i
+    }
+
+    .list li i {
       position absolute
       right -16%
       width 15%
       background #E2421B
       color #fff
       text-align center
-    .swipeleft
+    }
+
+    .swipeleft {
       transform: translateX(-15%)
       -webkit-transform: translateX(-15%)
+    }
 
-  .taskCheck
+
+  .taskCheck {
     padding-left 21px
     padding-right 15px
-  .taskTitle
+  }
+
+  .taskTitle {
     font-size 20px
     color #242921
+  }
+
   .taskTime{
     float: right;
     font-size: 14px;
