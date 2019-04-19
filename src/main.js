@@ -100,17 +100,31 @@ Vue.use(VueAxios,axios)
 import './assets/iconfont/iconfont.css'
 import store from './store/store' //使用vuex
 
+//前端过滤器，对使用的ajax请求进行过滤处理
 axios.defaults.baseURL = 'https://fucheng360.top'
-axios.interceptors.request.use(function (config) {
-  //在请求发出之前进行一些操作
+axios.interceptors.request.use(config => {
   return config
+},err => {
+  $store.state.data = '请求超时！'
+  this.Popup($store.state.data)
+  return Promise.resolve(err)
+  console.log($store.state.data)
 })
-axios.interceptors.response.use(function(config){
-  store.state.isShow = false //用拦截器对异常进行统一处理
+axios.interceptors.response.use(config => {
   return config
+}, err => {
+  if (err.respone.status === 500|| err.respone.status ===504 || err.respone.status === 404) {
+    $store.state.data = '服务器炸了⊙﹏⊙∥'
+    this.Popup($store.state.data)
+  } else {
+    $store.state.data = '服务发生错误!'
+    this.Popup($store.state.data)
+  }
+  return Promise.resolve(err)
 })
+
 //全局注册，方便在所有组件调用
-//验证邮箱格式
+//验证邮箱格式是否正确
 Vue.prototype.isEmail = function (str) {
   let myReg = /^[-_A-Za-z0-9]+@([_A-Za-z0-9]+\.)+[A-Za-z0-9]{2,3}$/
   if(myReg.test(str)){
@@ -120,7 +134,8 @@ Vue.prototype.isEmail = function (str) {
   }
 }
 //控制Toast显隐
-Vue.prototype.Popup = function () {
+Vue.prototype.Popup = function (msg) {
+  this.Msg = msg
   this.visible = true
   setTimeout(() => {
     this.visible = false
