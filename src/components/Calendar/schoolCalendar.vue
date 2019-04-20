@@ -122,13 +122,13 @@
     margin 0 auto
    .header
      height 1rem
-     padding-bottom: 4px;
-     border-bottom: 1px solid #f3f3f3;
-     box-shadow: 0px 1px 1px #f7f7f714;
-     font-size: 24px;
-     text-align: center;
-     font-family: PingFangSC-Semibold, sans-serif;
-     line-height: 1rem;
+     padding-bottom 4px
+     border-bottom: 1px solid #f3f3f3
+     box-shadow 0px 1px 1px #f7f7f714
+     font-size 24px
+     text-align center
+     font-family PingFangSC-Semibold, sans-serif
+     line-height 1rem
    .calendar
      flex-shrink 0
      width 90%
@@ -142,50 +142,50 @@
      box-shadow 0 0 10px rgba(208,208,208,0.5)
      .calendarHeader
        width 80%
-       color: #2c3135;
-       font-size: 16px;
-       display: flex;
-       align-items: center;
-       justify-content: space-between;
+       color #2c3135
+       font-size 16px
+       display flex
+       align-items center
+       justify-content space-between
        padding-top 20px
        .headerTitle
-        font-size: 18px;
-        letter-spacing: 1px;
+        font-size 18px
+        letter-spacing 1px
        .headerPre
-         height: 12px;
-         width: 12px;
-         position: relative;
+         height 12px
+         width 12px
+         position relative
          &:after {
-           content: " ";
-           display: inline-block;
-           height: 9px;
-           width: 9px;
-           border-width: 2px 2px 0 0;
-           border-color: #c8c8cd;
-           border-style: solid;
-           transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0) rotate(180deg);
-           position: absolute;
-           top: 50%;
-           margin-top: -4px;
-           right: 2px;
+           content: " "
+           display inline-block
+           height 9px
+           width 9px
+           border-width 2px 2px 0 0
+           border-color #c8c8cd
+           border-style solid
+           transform matrix(0.71, 0.71, -0.71, 0.71, 0, 0) rotate(180deg)
+           position absolute
+           top 50%
+           margin-top -4px
+           right 2px
          }
        .headerNext
-         height: 12px;
-         width: 12px;
-         position: relative;
+         height 12px
+         width 12px
+         position relative
          &:after {
-           content: " ";
-           display: inline-block;
-           height: 9px;
-           width: 9px;
-           border-width: 2px 2px 0 0;
-           border-color: #c8c8cd;
-           border-style: solid;
-           transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
-           position: absolute;
-           top: 50%;
-           margin-top: -4px;
-           right: 2px;
+           content " "
+           display inline-block
+           height 9px
+           width 9px
+           border-width 2px 2px 0 0
+           border-color #c8c8cd
+           border-style solid
+           transform matrix(0.71, 0.71, -0.71, 0.71, 0, 0)
+           position absolute
+           top 50%
+           margin-top -4px
+           right 2px
          }
       .calendarMain
          width 80%
@@ -194,17 +194,18 @@
          justify-content space-around
          flex-wrap wrap
          padding-top 19px
+         padding-bottom 25px
       .mainHead
         display flex
         justify-content center
         align-items center
         margin-top 20px
-        margin-bottom: 15px;
-        border-radius: 2px;
-        font-size: 12px;
-        color: #7f8fa4;
-        background-color: #fff;
-        flex-shrink: 0;
+        margin-bottom 5px
+        border-radius 2px
+        font-size 12px
+        color #7f8fa4
+        background-color #fff
+        flex-shrink 0
         width 14%
         max-width 14%
         height 14%
@@ -217,19 +218,19 @@
         max-width 14%
         height 14%
         max-height 14%
-        flex-shrink: 0;
-        box-shadow: 0;
-        position: relative;
+        padding-bottom 10px
+        flex-shrink 0
+        box-shadow 0
+        position relative
         font-size 18px
-        margin-top 10px
      .mainBlock:hover
-       transition: 0.5s all;
-       background-color: #f93d3a;
-       color: #fff;
-       box-shadow: 0 2px 6px rgba(171, 171, 171, 0.5);
+       transition 0.5s all
+       background-color #f93d3a
+       color #fff
+       box-shadow 0 2px 6px rgba(171, 171, 171, 0.5)
      .blockToday
-        transition: 0.5s all;
-        background-color: #f93d3a;
-        color: #fff;
-        box-shadow: 0 2px 6px rgba(171, 171, 171, 0.5);
+        transition 0.5s all
+        background-color #f93d3a
+        color #fff
+        box-shadow 0 2px 6px rgba(171, 171, 171, 0.5)
 </style>
