@@ -32,16 +32,18 @@
       <!--</div>-->
     </div>
 <!--任务渲染模块开始-->
-    <div class="default">
+    <div class="default" v-if="defaultBg">
       <!--默认的背景背景图，提醒用户添加任务-->
-      <img src="../../assets/images/add.png" v-if="defaultBg">
+      <img src="../../assets/images/add.png" >
     </div>
 
     <div class="list">
       <ul>
         <li v-for="(item,index) in unfinishDate"  class="unfinishList">
           <a href="#" :title="item.priority">
-            <cube-checkbox   :title="item.priority" class="taskCheck" @change="removeList(index, item.taskId)"></cube-checkbox>
+            <!--<cube-checkbox   :title="item.priority" class="taskCheck"  @change="removeList(index, item.taskId)"></cube-checkbox>-->
+            <input id="radio1" class="radio1" type="radio" hidden @change="removeList(index, item.taskId)">
+            <label for="radio1" class="unCheck" ></label>
             <span class="taskTitle">{{item.title}}</span>
             <span class="taskTime">{{item.startDate}}</span>
             <span class="taskLabel">{{item.label}}</span>
@@ -52,7 +54,9 @@
       <ul>
         <li v-for="(item, index) in finishDate" class="complete" v-if="finishDisplay">
           <a href="#">
-            <cube-checkbox v-model="full"  class="taskCheck" @change="addList(index, item.taskId)"></cube-checkbox>
+            <!--<cube-checkbox v-model="full"  class="taskCheck" @change="addList(index, item.taskId)"></cube-checkbox>-->
+            <input id="radio2" class="radio1" type="radio" hidden @change="addList(index, item.taskId)">
+            <label for="radio2" class="check" ></label>
             <span class="taskTitle">{{item.title}}</span>
             <!--<span class="taskTime">{{item.startDate}}</span>-->
             <!--<span class="taskLabel">{{item.label}}</span>-->
@@ -147,9 +151,10 @@
         this.$refs[picker].open();
       },
 
-      removeList (index,taskId) {
+      removeList (index, taskId) {
       //把添加的任务勾选为已完成
       //   console.log("选项值已改变")
+        console.log("taskId",taskId)
         this.finishDate.push(this.unfinishDate[index])
         this.unfinishDate.splice(index,1)
         this.checked = this.finishDate.length
@@ -281,123 +286,155 @@
 </script>
 <style lang="stylus" scoped>
   .iconfont{
-    font-size: 25px;
+    font-size: 25.5px;
   }
   body{
     font-size: .14rem;
   }
+  li{
+    list-style: none;
+  }
   i{
     font-style: normal;
+
   }
   a{
     color: #393939;
     text-decoration: none;
   }
-
-
-  .task
-    position absolute
-    top 0
-    bottom 1rem
-    left 0
-    right 0
-    overflow hidden
-    max-width 420px
-    margin 0 auto
-    font-family PingFangSC-Semibold, sans-serif
-    .default img
-      width 10rem
-      height 456px
-      margin-top 0.5rem
-      padding-top 1.1rem
-    .header
-      position fixed
-      width 9.4rem
-      height 1rem
-      padding 0 .3rem  2px .3rem
-      font-size 18px
-      line-height 1rem
-      text-align center
-      background white
-      border-bottom 1px solid #f3f3f3
-      box-shadow 0px 1px 1px #f7f7f714
-      .completeness
-        float left
-      .complete
-        text-decoration line-through
-        color #242921
-        .btn_complete
-          font-size 18px
-          color #242921
-          .iconfont
-           font-size: 20px
-       .task_title
-         font-size: 24px;
-      .header div
-        display inline-block
-     .header button
-        border 0
-        background: white
-      .more
-        float right
-        height 1rem
-        line-height 1.1rem
-      .btn_more
-        font-size: 25px;
-
-  .list {
-    overflow hidden
-    margin-top 1rem
-    padding-bottom 1rem
-    z-index: -1
+  .default img{
+    padding-top: 30px;
+    width: 10rem;
+    height: 456px;
+  }
+  .list{
+    overflow:hidden;
+    margin-top: 1.2rem;
+    padding-bottom: 1rem;
+    z-index: -1;
+    /*padding-left:.3rem;*/
+  }
+  .list ul{
+    float: left;
+  }
+  .list li{
+    overflow: hidden;
+    width: 120%;
+    height: 66px;
+    line-height: 66px;
+  }
+  .complete a span{
+    text-decoration: line-through;
+  }
+  .complete .taskTitle{
+    color: #C0C0C0;
+    /*color: red;*/
+  }
+  .btn_complete .iconfont{
+    font-size: 20px;
+  }
+  .list li a{
+    display: block;
+    -webkit-transition: all 0.3s;
+    transition:all 0.3s;
+    position: relative;
+    width: 10rem;
+  }
+  .list li i{
+    position: absolute;
+    right: -16%;
+    width: 15%;
+    text-align: center;
+    background: #E2421B;
+    color: #fff;
+  }
+  .swipeleft{
+    transform: translateX(-15%);
+    -webkit-transform: translateX(-15%);
+  }
+  .task{
+    position: absolute;
+    top: 0;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+    font-family: PingFangSC-Semibold, sans-serif;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .header{
+    position: fixed;
+    width: 9.4rem;
+    height: 1rem;
+    line-height: 1rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    padding-bottom: 4px;
+    text-align: center;
+    font-size: 18px;
+    background: white;
+    border-bottom: 1px solid #f3f3f3;
+    box-shadow: 0px 1px 1px #f7f7f714;
+  }
+  .task_title{
+    font-size: 24px;
+  }
+  .header div{
+    display: inline-block;
+  }
+  .header button{
+    border: 0;
+    background: white;
+  }
+  .completeness{
+    float: left;
+  }
+  .more{
+    float: right;
+  }
+  .btn_more{
+    font-size: 25px;
+  }
+ .unCheck {
+    height 20px
+    width 20px
+    display inline-block
+    background-image: url('../../assets/images/unCheck.png');
+    background-size 20px 20px
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    margin-top: -4px;
+    margin-left 10px
+    border 1px solid blue
+ }
+  input[type="radio"]:checked + .unCheck {
+    background-image: url('../../assets/images/check.png');
+  }
+  .check {
+    height 20px
+    width 20px
+    display inline-block
+    background-image: url('../../assets/images/check.png');
+    background-size 20px 20px
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    margin-bottom 9px
+    margin-left 10px
   }
 
-    .list ul {
-      float left
-      margin-left -1.1rem
-    }
-
-    .list li {
-      width:125%
-      height 66px
-      line-height 66px
-      overflow hidden
-      list-style none
-    }
-
-    .list li a {
-      position relative
-      width 10rem
-      display block
-      -webkit-transition all 0.3s
-      transition all 0.3s
-    }
-
-    .list li i {
-      position absolute
-      right -16%
-      width 15%
-      background #E2421B
-      color #fff
-      text-align center
-    }
-
-    .swipeleft {
-      transform: translateX(-15%)
-      -webkit-transform: translateX(-15%)
-    }
-
-
-  .taskCheck {
-    padding-left 21px
-    padding-right 15px
+  .taskCheck{
+    padding-left: 21px;
+    padding-right: 15px;
+    /*height: 66px;*/
+    /*line-height: 66px;*/
   }
-
-  .taskTitle {
-    font-size 20px
-    color #242921
+  .taskTitle{
+    margin-left 20px
+    font-size: 20px;
+    color: #242921;
   }
-
   .taskTime{
     float: right;
     font-size: 14px;
@@ -447,12 +484,20 @@
     right: 0;
     z-index: 10;
   }
+
+  .timeLength{
+    position: absolute;
+    top: 420px;
+    left: -300px;
+    display: flex;
+    justify-content: flex-start;
+  }
   .moreSetting{
     position: absolute;
     width: 5rem;
     background: white;
     right: 0;
-    top:1rem;
+    top: 1.2rem;
     font-size: 16px;
     z-index:999;
     overflow: auto;
