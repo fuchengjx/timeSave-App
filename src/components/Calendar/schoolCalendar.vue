@@ -218,19 +218,19 @@
         max-width 14%
         height 14%
         max-height 14%
-        padding-bottom 10px
+        padding-bottom 17px
         flex-shrink 0
         box-shadow 0
         position relative
         font-size 18px
      .mainBlock:hover
        transition 0.5s all
-       background-color #f93d3a
+       background-color #0082ff
        color #fff
        box-shadow 0 2px 6px rgba(171, 171, 171, 0.5)
      .blockToday
         transition 0.5s all
-        background-color #f93d3a
+        background-color #0082ff
         color #fff
         box-shadow 0 2px 6px rgba(171, 171, 171, 0.5)
 </style>

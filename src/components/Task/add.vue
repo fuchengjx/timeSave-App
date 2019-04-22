@@ -9,7 +9,7 @@
         <span class="iconfont">&#xe843;</span>
       </button>
       <div class="input_text">
-        <input placeholder=" 请添加注意事项" v-model="title"/>
+        <input placeholder="请添加注意事项" v-model="title"/>
       </div>
 
       <div class="taskNav">
@@ -82,9 +82,7 @@
         options: ['健身', '旅游', '学习', '工作', '娱乐'],
         labelVisable: false,
         priorityValue: 0,
-
         startTime: '',
-
         timeVisable: false,
       }
     },
@@ -98,23 +96,28 @@
       confirmAdd () {
         let postData = {title: this.title, startTime: this.startTime, label: this.labelValue, priority: this.priorityValue}
         console.log(postData)
-        this.axios({
-          method: 'post',
-          url: '/api/task/create',
-          data: postData,
-          headers: {
-            Authorization: this.token
-          }
-        }).then( (res)=> {
-          this.Msg = res.data.message
-          this.Popup ()
-          if(res.data.status) {
-            this.$router.push({ path: '/'})
-          }
-        }).catch( (err)=> {
-          this.Msg = err + "\n\n" + "       创建任务失败"
+        if (this.title) {
+          this.axios({
+            method: 'post',
+            url: '/api/task/create',
+            data: postData,
+            headers: {
+              Authorization: this.token
+            }
+          }).then( (res)=> {
+            this.Msg = res.data.message
+            this.Popup ()
+            if(res.data.status) {
+              this.$router.push({ path: '/'})
+            }
+          }).catch( (err)=> {
+            this.Msg = err + "\n\n" + "       创建任务失败"
+            this.Popup()
+          })
+        } else {
+          this.Msg = '请添加注意事项'
           this.Popup()
-        })
+        }
       },
       labelDisplay () {
         this.labelVisable = true
@@ -166,6 +169,7 @@
       height 1rem
       width 9.4rem
       padding-top 5px
+      padding-left 10px
       margin-bottom 12px
       border 0
       font-size 24px

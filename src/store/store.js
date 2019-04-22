@@ -2,9 +2,9 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
 
-// const state = {
-//   data: 'this is data in state'
-// },
+const state = {
+  data: 'this is data in state'
+}
 //  mutations : {
 //   output(state){
 //     console.log(state.data)
@@ -26,14 +26,17 @@ Vue.use(Vuex);
 //   }
 // }
 export default new Vuex.Store({
-  // state,
+  state
   // mutations,
   // actions
 })
+
+
 // export const store = new Vuex.Store({
 //   state: {
-//     data: 'this is data in state'
-//   },
+//     data: ''
+//   }
+
 //   mutations: {
 //     output(state){
 //       console.log(state.data)

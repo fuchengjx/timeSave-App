@@ -73,6 +73,7 @@
               Authorization: this.token
             }
           }).then(this.showMsg).catch(()=>{
+            console.log(this.$store.state.data)
             this.Msg = "反馈失败"
             this.Popup()
           })

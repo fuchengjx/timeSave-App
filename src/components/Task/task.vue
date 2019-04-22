@@ -39,24 +39,22 @@
 
     <div class="list">
       <ul>
-        <li v-for="(item,index) in unfinishDate"  class="unfinishList">
-          <a href="#" :title="item.priority">
-            <!--<cube-checkbox   :title="item.priority" class="taskCheck"  @change="removeList(index, item.taskId)"></cube-checkbox>-->
-            <input id="radio1" class="radio1" type="radio" hidden @change="removeList(index, item.taskId)">
-            <label for="radio1" class="unCheck" ></label>
-            <span class="taskTitle">{{item.title}}</span>
-            <span class="taskTime">{{item.startDate}}</span>
-            <span class="taskLabel">{{item.label}}</span>
-            <i @click="delUncheck(item.title, index, item.taskId)">删除</i>
-          </a>
-        </li>
+          <li v-for="(item,index) in unfinishDate"   class="unfinishList">
+            <a href="#" :title="item.priority">
+              <input id="radio1" class="radio1" type="radio" hidden >
+              <label @click="removeList(index, item.taskId)" for="radio1" class="unCheck" ></label>
+              <span class="taskTitle">{{item.title}}</span>
+              <span class="taskTime">{{item.startDate}}</span>
+              <span class="taskLabel">{{item.label}}</span>
+              <i @click="delUncheck(item.title, index, item.taskId)">删除</i>
+            </a>
+          </li>
       </ul>
       <ul>
-        <li v-for="(item, index) in finishDate" class="complete" v-if="finishDisplay">
-          <a href="#">
-            <!--<cube-checkbox v-model="full"  class="taskCheck" @change="addList(index, item.taskId)"></cube-checkbox>-->
-            <input id="radio2" class="radio1" type="radio" hidden @change="addList(index, item.taskId)">
-            <label for="radio2" class="check" ></label>
+        <li v-for="(item, index) in finishDate"  class="complete" v-if="finishDisplay">
+          <a href="#" >
+            <input id="radio2" class="radio1" type="radio"  hidden checked>
+            <label @click="addList(index, item.taskId)" for="radio2" class="check" ></label>
             <span class="taskTitle">{{item.title}}</span>
             <!--<span class="taskTime">{{item.startDate}}</span>-->
             <!--<span class="taskLabel">{{item.label}}</span>-->
@@ -108,22 +106,25 @@
         this.elDisply = false
         this.$router.push({path: '/Task/add'})
       },
-      render (res) {
-        console.log("state: ",$store.state.data) //测试state
-        if (res.data.code) {
-          // console.log("创建成功");
-          this.axios({
-            method: 'get',
-            url: '/api/task/list',
-            headers: {
-              Authorization: this.token
-            }
-          }).then(this.renderList).catch(function () {
-            alert("创建失败")
-          })
-        } else {
-          console.log("创建失败")
-        }
+      // render (res) {
+      //   console.log("state: ",$store.state.data) //测试state
+      //   if (res.data.status) {
+      //     console.log("创建成功");
+      //     this.axios({
+      //       method: 'get',
+      //       url: '/api/task/list',
+      //       headers: {
+      //         Authorization: this.token
+      //       }
+      //     }).then(this.renderList).catch(function () {
+      //       alert("创建失败")
+      //     })
+      //   } else {
+      //     console.log("创建失败")
+      //   }
+      // },
+      test(index, id) {
+        console.log("taskID onclick",id + "  " + index)
       },
       renderList (res) {
           if(res.data.status){
@@ -132,13 +133,13 @@
             this.finishDate = res.data.data.finish
             this.unchecked = this.unfinishDate.length +  this.finishDate.length
             this.checked = this.finishDate.length
-            setTimeout(()=>{
-              if  (this.unchecked === 0){
-                this.defaultBg = true
-              } else {
-                this.defaultBg = false
-              }
-            }, 500)
+            // setTimeout(()=>{
+            //   if (this.unchecked === 0) {
+            //     this.defaultBg = true
+            //   } else {
+            //     this.defaultBg = false
+            //   }
+            // }, 500)
           }
           // this.elDisply = true //渲染完毕勾选立即显示
       },
@@ -154,10 +155,13 @@
       removeList (index, taskId) {
       //把添加的任务勾选为已完成
       //   console.log("选项值已改变")
-        console.log("taskId",taskId)
-        this.finishDate.push(this.unfinishDate[index])
-        this.unfinishDate.splice(index,1)
-        this.checked = this.finishDate.length
+        console.log("taskId removeList: ",taskId)
+        setTimeout( () => {
+          // console.log("timeout removeList")
+          this.finishDate.push(this.unfinishDate[index])
+          this.unfinishDate.splice(index,1)
+          this.checked = this.finishDate.length
+        },500)
         let data = {"taskId" : taskId}
         this.axios({
           method: 'post',
@@ -169,9 +173,13 @@
         })
       },
       addList (index,taskId) {
-        this.unfinishDate.push(this.finishDate[index])
-        this.finishDate.splice(index,1)
-        this.checked = this.finishDate.length
+        // console.log("addList taskId",taskId)
+        setTimeout(()=> {
+          console.log("timeout addList")
+          this.unfinishDate.push(this.finishDate[index])
+          this.finishDate.splice(index,1)
+          this.checked = this.finishDate.length
+        },500)
         let data = {"taskId" : taskId}
         this.axios({
           method:'post',
@@ -202,7 +210,7 @@
         }
       },
       count (res) {
-        if (res.data.code){
+        if (res.data.status){
           console.log("count")
           this.unchecked = this.unfinishDate.length +  this.finishDate.length
           this.checked = this.finishDate.length
@@ -242,6 +250,14 @@
     },
     created () {
       console.log("created")
+      console.log("state: ",this.$store.state.data) //测试state
+      setTimeout(()=>{
+        if (this.unchecked === 0) {
+          this.defaultBg = true
+        } else {
+          this.defaultBg = false
+        }
+      }, 200)
       this.axios({
         method: 'get',
         url: '/api/task/list',
@@ -251,6 +267,13 @@
       }).then(this.renderList).catch(this.loginFail)
     },
     updated () {
+      setTimeout(()=>{
+        if (this.unchecked === 0) {
+          this.defaultBg = true
+        } else {
+          this.defaultBg = false
+        }
+      }, 200)
       setTimeout( () => {
         var $this = this;														//将$this保存 区分以下触发事件的this
         var container = document.querySelectorAll('.list li a');
@@ -308,7 +331,7 @@
     height: 456px;
   }
   .list{
-    overflow:hidden;
+    overflow: hidden;
     margin-top: 1.2rem;
     padding-bottom: 1rem;
     z-index: -1;
@@ -323,6 +346,10 @@
     height: 66px;
     line-height: 66px;
   }
+    ul li.complete {
+      margin-top 10px
+      margin-bottom 10px
+    }
   .complete a span{
     text-decoration: line-through;
   }
@@ -361,6 +388,7 @@
     font-family: PingFangSC-Semibold, sans-serif;
     max-width: 420px;
     margin: 0 auto;
+    overflow hidden
   }
   .header{
     position: fixed;
@@ -395,23 +423,34 @@
   .btn_more{
     font-size: 25px;
   }
+  .alist-fade-enter-active, .alist-fade-leave-active {
+    transition all 0.5s ease
+  }
+   .alist-fade-enter, .alist-fade-leave-to {
+     background red
+     opacity 0
+   }
+
  .unCheck {
+    transition 0.5s all
     height 20px
     width 20px
     display inline-block
-    background-image: url('../../assets/images/unCheck.png');
+    background url('../../assets/images/unCheck.png')
     background-size 20px 20px
     background-repeat: no-repeat;
     background-position: center;
     vertical-align: middle;
     margin-top: -4px;
     margin-left 10px
-    border 1px solid blue
+    /*border 1px solid blue*/
  }
-  input[type="radio"]:checked + .unCheck {
-    background-image: url('../../assets/images/check.png');
-  }
+   .unCheck:active,
+   .unCheck:checked {
+     opacity 0
+   }
   .check {
+    transition 0.5s all
     height 20px
     width 20px
     display inline-block
@@ -422,13 +461,6 @@
     vertical-align: middle;
     margin-bottom 9px
     margin-left 10px
-  }
-
-  .taskCheck{
-    padding-left: 21px;
-    padding-right: 15px;
-    /*height: 66px;*/
-    /*line-height: 66px;*/
   }
   .taskTitle{
     margin-left 20px
