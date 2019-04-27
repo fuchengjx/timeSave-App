@@ -89,6 +89,7 @@ Vue.use(ScrollNav)
 Vue.use(ScrollNavBar)
 Vue.use(RecycleList)
 
+
 Vue.config.productionTip = false
 
 // import FastClick from 'fastclick' //引入fastclick,处理移动端300ms延迟
