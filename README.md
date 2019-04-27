@@ -26,6 +26,16 @@
 
 登录成功后，路由会自动跳转到task界面，在这里是整个功能的核心部分，你可以实现任务的添加，删除，勾选是否完成等功能。  点击蓝色的添加按钮，出现添加视窗,在这里选择要添加的任务标题，选择任务的标签(这里可以选择默认的几个标签，也可以自己输入自定义的标签类型。)，可以对任务的优先级进行加急，点击那个加急图标后，图标的颜色将会变成蓝色，并且一直不会改变，以示你已经加急过该事件。 然后点击添加时间的图标，选择任务开始的时间点，选择开始的日期等。然后点击右上角添加图标， 添加成功后，会重新请求一下后端服务器，确保任务已经在后端数据库添加完成。  如果正在添加的任务有误，你可以点击返回图标，返回初始的任务界面。再次返回后，原来的错误输入会全部清除掉。
 
+![](http://github.com/fuchengjx/Todolist/raw/master/readme/task2.png)
+
+添加完任务后的，task页面
+
+![](http://github.com/fuchengjx/Todolist/raw/master/readme/addTask.png)
+
+添加任务页面
+
+![](http://github.com/fuchengjx/Todolist/raw/master/readme/deleteTask.png)
+
 添加后的任务，可以勾选，勾选后将颜色将会变灰，然后出现中划线将其划掉，表示已经完成这个任务。已完成的任务可以再次取消勾选回去。  先前添加后的勾选框，如果有加急这件任务，它添加成功后会有勾选框的样式为蓝色，以表示这件事被加急过了。  任务向左滑动会出现删除按钮，点击删除后可以将任务删除。
 
 ![校历表](http://github.com/fuchengjx/Todolist/raw/master/readme/schoolCalendar.png)
@@ -35,6 +45,14 @@
 ![我的](http://github.com/fuchengjx/Todolist/raw/master/readme/mine.png)
 
 底部导航栏，第三个位我的，这里有当前用户信息，显示用户的头像、用户名(目前修改头像和用户名的功能尚未开放)及邮箱账号。关于 界面可以看到一些关于这个产品的一系列信息。 反馈与建议 可以向我们提出你宝贵的建议。 修改密码 可以修改你这个邮箱账号的密码。  退出登录 点击后，将会清除localStorage存储下来的token，然后路由跳转到登录界面。
+
+![](http://github.com/fuchengjx/Todolist/raw/master/readme/about.png)
+
+关于页面
+
+![](http://github.com/fuchengjx/Todolist/raw/master/readme/feedBack.png)
+
+用户反馈页面，在这里可以向我们反馈一些建议
 
 
 ## Build Setup

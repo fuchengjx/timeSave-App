@@ -1,19 +1,18 @@
 <template>
 
   <div class="task" >
-    <div class="header" v-if="headerShow">
+    <div class="header">
       <div class="completeness">
         <button class="btn_complete">
           <span class="iconfont">&#xe83c;</span>
-          <span v-model="checked">{{this.checked}}</span>
-          <!--<span>/</span>-->
+          <span>{{this.checked}}</span>
           /
-          <span v-model="unchecked">{{this.unchecked}}</span>
+          <span>{{this.unchecked}}</span>
         </button>
       </div>
       <span class="task_title">任务</span>
       <div class="more" @click="showSetting">
-        <button  class="btn_more iconfont">&#xe842;</button>
+        <button  class="iconfont">&#xe842;</button>
       </div>
       <!--<div class="switch">-->
         <!--<button  class="btn_switch iconfont">&#xe844;</button>-->
@@ -39,7 +38,7 @@
 
     <div class="list">
       <ul>
-          <li v-for="(item,index) in unfinishDate"   class="unfinishList">
+          <li v-for="(item,index) in unfinishDate"  class="unfinishList" :key="index">
             <a href="#" :title="item.priority">
               <input id="radio1" class="radio1" type="radio" hidden >
               <label @click="removeList(index, item.taskId)" for="radio1" class="unCheck" ></label>
@@ -51,7 +50,7 @@
           </li>
       </ul>
       <ul>
-        <li v-for="(item, index) in finishDate"  class="complete" v-if="finishDisplay">
+        <li v-for="(item, index) in finishDate"  class="complete" v-if="finishDisplay" :key="index">
           <a href="#" >
             <input id="radio2" class="radio1" type="radio"  hidden checked>
             <label @click="addList(index, item.taskId)" for="radio2" class="check" ></label>
@@ -70,7 +69,6 @@
       </button>
     </div>
 
-    <div class="barrier" v-if="display"></div>
     <div class="settingBarrier" v-if="settingVisable"></div>
 
   </div>
@@ -82,17 +80,12 @@
     name: "task",
     data () {
       return {
-        display: false,
-        headerShow: true,
         settingVisable: false,  //设置栏显隐
-        priorityValue: 0,
-        startTime: '',
         unfinishDate: [],
         finishDate: [],
         unchecked: 0,
         checked: 0,
         checkedList: [],
-        full: true,
         finishDisplay: true,
         token: localStorage.jwtToken,
         expansion: null,
@@ -101,30 +94,7 @@
     },
     methods: {
       addEvent () {
-        this.display = true
-        this.headerShow = false
-        this.elDisply = false
         this.$router.push({path: '/Task/add'})
-      },
-      // render (res) {
-      //   console.log("state: ",$store.state.data) //测试state
-      //   if (res.data.status) {
-      //     console.log("创建成功");
-      //     this.axios({
-      //       method: 'get',
-      //       url: '/api/task/list',
-      //       headers: {
-      //         Authorization: this.token
-      //       }
-      //     }).then(this.renderList).catch(function () {
-      //       alert("创建失败")
-      //     })
-      //   } else {
-      //     console.log("创建失败")
-      //   }
-      // },
-      test(index, id) {
-        console.log("taskID onclick",id + "  " + index)
       },
       renderList (res) {
           if(res.data.status){
@@ -133,13 +103,6 @@
             this.finishDate = res.data.data.finish
             this.unchecked = this.unfinishDate.length +  this.finishDate.length
             this.checked = this.finishDate.length
-            // setTimeout(()=>{
-            //   if (this.unchecked === 0) {
-            //     this.defaultBg = true
-            //   } else {
-            //     this.defaultBg = false
-            //   }
-            // }, 500)
           }
           // this.elDisply = true //渲染完毕勾选立即显示
       },
@@ -154,14 +117,13 @@
 
       removeList (index, taskId) {
       //把添加的任务勾选为已完成
-      //   console.log("选项值已改变")
-        console.log("taskId removeList: ",taskId)
+        let lists = document.querySelectorAll(".unfinishList")
+        lists[index].style.opacity = '0.5'
         setTimeout( () => {
-          // console.log("timeout removeList")
           this.finishDate.push(this.unfinishDate[index])
           this.unfinishDate.splice(index,1)
           this.checked = this.finishDate.length
-        },500)
+        },800)
         let data = {"taskId" : taskId}
         this.axios({
           method: 'post',
@@ -173,13 +135,13 @@
         })
       },
       addList (index,taskId) {
-        // console.log("addList taskId",taskId)
+        let lists = document.querySelectorAll(".complete")
+        lists[index].style.opacity = '0.5'
         setTimeout(()=> {
-          console.log("timeout addList")
           this.unfinishDate.push(this.finishDate[index])
           this.finishDate.splice(index,1)
           this.checked = this.finishDate.length
-        },500)
+        },800)
         let data = {"taskId" : taskId}
         this.axios({
           method:'post',
@@ -211,10 +173,8 @@
       },
       count (res) {
         if (res.data.status){
-          console.log("count")
           this.unchecked = this.unfinishDate.length +  this.finishDate.length
           this.checked = this.finishDate.length
-          console.log("checked:"+ this.checked, "unchecked"+ this.unchecked)
           setTimeout( ()=> {
             alert("删除成功")
           })
@@ -298,10 +258,10 @@
         }
       },1000)
       //给紧急的任务 选项框与蓝色，加以识别
-      var lis = document.querySelectorAll(".unfinishList a label ")
+      var lis = document.querySelectorAll(".unfinishList")
       for (var i =0; i<lis.length; i++){
-        if( lis[i].getAttribute("title") === "1"){
-          lis[i].firstChild.firstChild.style.border = '1px solid #0082FF'
+        if( lis[i].firstChild.getAttribute("title") === "1"){
+          lis[i].firstChild.childNodes[2].style.backgroundImage = "url(http://pqcohcpid.bkt.clouddn.com/unCheckP.png)"
         }
       }
     }
@@ -310,16 +270,6 @@
 <style lang="stylus" scoped>
   .iconfont{
     font-size: 25.5px;
-  }
-  body{
-    font-size: .14rem;
-  }
-  li{
-    list-style: none;
-  }
-  i{
-    font-style: normal;
-
   }
   a{
     color: #393939;
@@ -345,20 +295,7 @@
     width: 120%;
     height: 66px;
     line-height: 66px;
-  }
-    ul li.complete {
-      margin-top 10px
-      margin-bottom 10px
-    }
-  .complete a span{
-    text-decoration: line-through;
-  }
-  .complete .taskTitle{
-    color: #C0C0C0;
-    /*color: red;*/
-  }
-  .btn_complete .iconfont{
-    font-size: 20px;
+    list-style: none;
   }
   .list li a{
     display: block;
@@ -373,13 +310,28 @@
     width: 15%;
     text-align: center;
     background: #E2421B;
+    font-style: normal
     color: #fff;
   }
   .swipeleft{
     transform: translateX(-15%);
     -webkit-transform: translateX(-15%);
   }
-  .task{
+  ul li.complete {
+    transition 0.8s all
+    margin-top 10px
+    margin-bottom 10px
+  }
+  .complete a span{
+    text-decoration: line-through;
+  }
+  .complete .taskTitle{
+    color: #C0C0C0;
+  }
+  .btn_complete .iconfont{
+    font-size: 20px;
+  }
+  .task {
     position: absolute;
     top: 0;
     bottom: 1rem;
@@ -390,75 +342,59 @@
     margin: 0 auto;
     overflow hidden
   }
-  .header{
+  .header {
     position: fixed;
     width: 9.4rem;
     height: 1rem;
     line-height: 1rem;
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
-    padding-bottom: 4px;
+    padding 6px 0.3rem 4px 0.3rem
     text-align: center;
     font-size: 18px;
     background: white;
     border-bottom: 1px solid #f3f3f3;
     box-shadow: 0px 1px 1px #f7f7f714;
   }
-  .task_title{
-    font-size: 24px;
-  }
-  .header div{
+  .header div {
     display: inline-block;
   }
-  .header button{
+  .header button {
     border: 0;
     background: white;
   }
-  .completeness{
+  .completeness {
     float: left;
+  }
+  .task_title {
+    font-size: 24px;
   }
   .more{
     float: right;
-  }
-  .btn_more{
     font-size: 25px;
   }
-  .alist-fade-enter-active, .alist-fade-leave-active {
-    transition all 0.5s ease
-  }
-   .alist-fade-enter, .alist-fade-leave-to {
-     background red
-     opacity 0
-   }
-
- .unCheck {
-    transition 0.5s all
-    height 20px
-    width 20px
-    display inline-block
-    background url('../../assets/images/unCheck.png')
-    background-size 20px 20px
-    background-repeat: no-repeat;
-    background-position: center;
-    vertical-align: middle;
-    margin-top: -4px;
-    margin-left 10px
-    /*border 1px solid blue*/
+ .list .unfinishList {
+    transition 0.8s all
  }
-   .unCheck:active,
-   .unCheck:checked {
-     opacity 0
-   }
-  .check {
-    transition 0.5s all
+ .unCheck {
     height 20px
     width 20px
     display inline-block
-    background-image: url('../../assets/images/check.png');
+    background-image url('../../assets/images/unCheck.png')
     background-size 20px 20px
-    background-repeat: no-repeat;
-    background-position: center;
-    vertical-align: middle;
+    background-repeat: no-repeat
+    background-position: center
+    vertical-align: middle
+    margin-top -4px
+    margin-left 10px
+ }
+  .check {
+    height 20px
+    width 20px
+    display inline-block
+    background-image url('../../assets/images/check.png');
+    background-size 20px 20px
+    background-repeat no-repeat;
+    background-position center;
+    vertical-align middle;
     margin-bottom 9px
     margin-left 10px
   }
@@ -499,14 +435,6 @@
     border-radius: 50%;
     text-shadow: 0px 1px 1px #999999;
   }
-  .barrier{
-    background: #ffffff;
-    position: absolute;
-    top: 0;
-    bottom: -1rem;
-    left: 0;
-    right: 0;
-  }
   .settingBarrier{
     background: rgba(192,192,192,0.2);
     position: absolute;
@@ -516,7 +444,6 @@
     right: 0;
     z-index: 10;
   }
-
   .timeLength{
     position: absolute;
     top: 420px;
