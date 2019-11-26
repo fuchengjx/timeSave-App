@@ -3,15 +3,15 @@ import Router from 'vue-router'
 
 // 分块路由懒加载
 const index = () => import('../components/index')
-const login = () => import('../components/User/login')
-const register = () => import('../components/User/register')
-const task = () => import('../components/Task/task')
+const login = () => import(/* webpackChunkName: "user-login" */ '../components/User/login')
+const register = () => import(/* webpackChunkName: "user-register" */ '../components/User/register')
+const task = () => import(/* webpackChunkName: "task-task" */ '../components/Task/task')
 // const addTask = () => import('../components/Task/addTask')
-const shoolCalendar = () => import('../components/Calendar/schoolCalendar')
-const suggestion = () => import('../components/User/suggestion')
-const about = () => import('../components/User/about')
-const modifyPassword = () => import('../components/User/modifyPassword')
-const mine = () => import('../components/User/mine')
+const shoolCalendar = () => import(/* webpackChunkName: "user-login" */ '../components/Calendar/schoolCalendar')
+const suggestion = () => import(/* webpackChunkName: "user-suggestion" */ '../components/User/suggestion')
+const about = () => import(/* webpackChunkName: "user-about" */ '../components/User/about')
+const modifyPassword = () => import(/* webpackChunkName: "user-modifyPassword" */ '../components/User/modifyPassword')
+const mine = () => import(/* webpackChunkName: "user-mine" */ '../components/User/mine')
 // import index from '../components/index'
 // import login from '../components/User/login'
 // import register from '../components/User/register'
@@ -21,7 +21,7 @@ const mine = () => import('../components/User/mine')
 // import about from '../components/User/about'
 // import modifyPassword from '../components/User/modifyPassword'
 // import mine from '../components/User/mine'
-import add from '../components/Task/add'
+const add = () => import(/* webpackChunkName: "task-add" */ '../components/Task/add')
 Vue.use(Router)
 
 export default new Router({
