@@ -261,7 +261,7 @@
       var lis = document.querySelectorAll(".unfinishList")
       for (var i =0; i<lis.length; i++){
         if( lis[i].firstChild.getAttribute("title") === "1"){
-          lis[i].firstChild.childNodes[2].style.backgroundImage = "url(http://pqcohcpid.bkt.clouddn.com/unCheckP.png)"
+          lis[i].firstChild.childNodes[2].style.backgroundImage = "url(http://images.fucheng360.top/unCheckP.png)"
         }
       }
     }
