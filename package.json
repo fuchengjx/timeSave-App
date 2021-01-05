@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cube-ui": "^1.12.13",
     "fastclick": "^1.0.6",
     "lib-flexible": "^0.3.2",
